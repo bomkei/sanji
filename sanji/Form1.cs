@@ -18,8 +18,13 @@ namespace sanji {
       timeline = new Timeline();
     }
 
-    private void Form1_Paint(object sender, PaintEventArgs e) {
+    private void draw() {
       timeline.draw(ref picturebox_timeline);
+
+    }
+
+    private void Form1_Paint(object sender, PaintEventArgs e) {
+      draw();
     }
 
     private void テキストToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -29,6 +34,18 @@ namespace sanji {
       };
 
       timeline.add_item(item);
+    }
+
+    private void picturebox_timeline_MouseDown(object sender, MouseEventArgs e) {
+      timeline.timeline_MouseDown(sender, e);
+    }
+
+    private void picturebox_timeline_MouseMove(object sender, MouseEventArgs e) {
+      timeline.timeline_MouseMove(sender, e);
+    }
+
+    private void picturebox_timeline_MouseUp(object sender, MouseEventArgs e) {
+      timeline.timeline_MouseUp(sender, e);
     }
   }
 

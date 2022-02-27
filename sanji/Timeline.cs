@@ -27,6 +27,18 @@ namespace sanji {
         layer = 0;
         position = 0;
       }
+
+      public Brush kind_to_brush() {
+        switch (kind) {
+          case Kind.Text:
+            return Brushes.LightGreen;
+
+          case Kind.Video:
+            return Brushes.Pink;
+        }
+
+        return null;
+      }
     }
 
     public struct ColorProperty {
@@ -36,6 +48,8 @@ namespace sanji {
 
     public readonly int BMP_WIDTH = 1200;
     public readonly int BMP_HEIGHT = 600;
+
+    public int clip_height = 32;
 
     public List<Item> items;
     public ColorProperty color_property;
@@ -60,9 +74,28 @@ namespace sanji {
     public void draw(ref PictureBox picturebox) {
       gra.Clear(Color.White);
 
+      for (int i = 0; i < picturebox.Height / clip_height; i++) {
+        gra.DrawLine(Pens.Black, 0, i * clip_height, picturebox.Width, i * clip_height);
+      }
 
+      foreach (var item in items) {
+        gra.DrawRectangle(Pens.Black, item.position, item.layer * clip_height, item.width, clip_height);
+        gra.FillRectangle(item.kind_to_brush(), item.position, item.layer * clip_height, item.width, clip_height);
+      }
 
       picturebox.Image = bitmap;
+    }
+
+    public void timeline_MouseDown(object sender, MouseEventArgs e) {
+
+    }
+
+    public void timeline_MouseMove(object sender, MouseEventArgs e) {
+
+    }
+
+    public void timeline_MouseUp(object sender, MouseEventArgs e) {
+
     }
   }
 }

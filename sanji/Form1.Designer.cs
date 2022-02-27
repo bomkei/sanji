@@ -75,6 +75,9 @@ namespace sanji
       this.picturebox_timeline.Size = new System.Drawing.Size(1014, 175);
       this.picturebox_timeline.TabIndex = 2;
       this.picturebox_timeline.TabStop = false;
+      this.picturebox_timeline.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picturebox_timeline_MouseDown);
+      this.picturebox_timeline.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picturebox_timeline_MouseMove);
+      this.picturebox_timeline.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picturebox_timeline_MouseUp);
       // 
       // picturebox_player_scrollbar
       // 
@@ -95,7 +98,7 @@ namespace sanji
       this.ctxMenuStrip_timeline.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.追加ToolStripMenuItem});
       this.ctxMenuStrip_timeline.Name = "ctxMenuStrip_timeline";
-      this.ctxMenuStrip_timeline.Size = new System.Drawing.Size(181, 48);
+      this.ctxMenuStrip_timeline.Size = new System.Drawing.Size(144, 26);
       // 
       // ctxMenuStrip_tl_item
       // 
