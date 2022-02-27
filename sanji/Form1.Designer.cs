@@ -39,6 +39,8 @@ namespace sanji
       this.ctxMenuStrip_tl_item = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.追加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.テキストToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.menuStrip1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_preview)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_timeline)).BeginInit();
@@ -89,6 +91,9 @@ namespace sanji
       // 
       // ファイルFToolStripMenuItem
       // 
+      this.ファイルFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.設定ToolStripMenuItem,
+            this.終了ToolStripMenuItem});
       this.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
       this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
       this.ファイルFToolStripMenuItem.Text = "ファイル(&F)";
@@ -98,7 +103,7 @@ namespace sanji
       this.ctxMenuStrip_timeline.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.追加ToolStripMenuItem});
       this.ctxMenuStrip_timeline.Name = "ctxMenuStrip_timeline";
-      this.ctxMenuStrip_timeline.Size = new System.Drawing.Size(181, 48);
+      this.ctxMenuStrip_timeline.Size = new System.Drawing.Size(144, 26);
       // 
       // ctxMenuStrip_tl_item
       // 
@@ -119,6 +124,19 @@ namespace sanji
       this.テキストToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.テキストToolStripMenuItem.Text = "テキスト";
       this.テキストToolStripMenuItem.Click += new System.EventHandler(this.テキストToolStripMenuItem_Click);
+      // 
+      // 設定ToolStripMenuItem
+      // 
+      this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
+      this.設定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.設定ToolStripMenuItem.Text = "設定";
+      // 
+      // 終了ToolStripMenuItem
+      // 
+      this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
+      this.終了ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.終了ToolStripMenuItem.Text = "終了";
+      this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
       // 
       // Form1
       // 
@@ -148,13 +166,15 @@ namespace sanji
 
     private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.PictureBox picturebox_preview;
-    private System.Windows.Forms.PictureBox picturebox_timeline;
     private System.Windows.Forms.PictureBox picturebox_player_scrollbar;
     private System.Windows.Forms.ToolStripMenuItem ファイルFToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem 追加ToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem テキストToolStripMenuItem;
     public System.Windows.Forms.ContextMenuStrip ctxMenuStrip_timeline;
     public System.Windows.Forms.ContextMenuStrip ctxMenuStrip_tl_item;
+    public System.Windows.Forms.PictureBox picturebox_timeline;
+    private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem;
   }
 }
 

@@ -46,8 +46,8 @@ namespace sanji {
       public Color bar;
     }
 
-    public readonly int BMP_WIDTH = 1200;
-    public readonly int BMP_HEIGHT = 600;
+    public readonly int BMP_WIDTH = 2000;
+    public readonly int BMP_HEIGHT = 1000;
 
     public int clip_height = 32;
 
@@ -98,14 +98,21 @@ namespace sanji {
       gra.Clear(Color.White);
 
       // ボーダー
-      for (int i = 0; i < picturebox.Height / clip_height; i++) {
+      for (int i = 0; i <= picturebox.Height / clip_height; i++) {
         gra.DrawLine(Pens.Black, 0, i * clip_height, picturebox.Width, i * clip_height);
       }
 
       // アイテム描画
       foreach (var item in items) {
-        gra.DrawRectangle(Pens.Black, item.position, item.layer * clip_height, item.width, clip_height);
-        gra.FillRectangle(item.kind_to_brush(), item.position, item.layer * clip_height, item.width, clip_height);
+        var rect = new Rectangle {
+          X = item.position,
+          Y = item.layer * clip_height + 4,
+          Width = item.width,
+          Height = clip_height - 6
+        };
+
+        gra.FillRectangle(item.kind_to_brush(), rect);
+        gra.DrawRectangle(Pens.Black, rect);
       }
 
       picturebox.Image = bitmap;
@@ -118,9 +125,10 @@ namespace sanji {
         var clicked_item = get_item_index_from_loc(pos, layer);
 
         if (clicked_item == -1) {
-
+          Form1.form1_instance.ctxMenuStrip_timeline.Show(Form1.form1_instance.picturebox_timeline, e.Location);
         }
         else {
+          Form1.form1_instance.ctxMenuStrip_tl_item.Show(Form1.form1_instance.picturebox_timeline, e.Location);
         }
 
         return;

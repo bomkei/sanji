@@ -11,11 +11,14 @@ using System.Windows.Forms;
 namespace sanji {
   public partial class Form1 : Form {
     Timeline timeline;
+    public static Form1 form1_instance;
 
     public Form1() {
       InitializeComponent();
 
+      form1_instance = this;
       timeline = new Timeline();
+
     }
 
     private void draw() {
@@ -34,6 +37,7 @@ namespace sanji {
       };
 
       timeline.add_item(item);
+      draw();
     }
 
     private void picturebox_timeline_MouseDown(object sender, MouseEventArgs e) {
@@ -46,6 +50,10 @@ namespace sanji {
 
     private void picturebox_timeline_MouseUp(object sender, MouseEventArgs e) {
       timeline.timeline_MouseUp(sender, e);
+    }
+
+    private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
+      this.Close();
     }
   }
 
