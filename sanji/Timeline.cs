@@ -67,6 +67,29 @@ namespace sanji {
       };
     }
 
+    public (int, int) mouse_pos_to_item_pos(int mx, int my) {
+      return (mx, my / clip_height);
+    }
+    
+    public Point mouse_pos_to_item_point(int mx, int my) {
+      var (x, y) = mouse_pos_to_item_pos(mx, my);
+      return new Point(x, y);
+    }
+
+    public int get_item_index_from_loc(int position, int layer) {
+      for (int i = 0; i < items.Count; i++) {
+        var item = items[i];
+
+        if (item.layer != layer)
+          continue;
+
+        if (item.position <= position && position < item.position + item.width)
+          return i;
+      }
+
+      return -1;
+    }
+
     public void add_item(Item item) {
       items.Add(item);
     }
@@ -74,10 +97,12 @@ namespace sanji {
     public void draw(ref PictureBox picturebox) {
       gra.Clear(Color.White);
 
+      // ボーダー
       for (int i = 0; i < picturebox.Height / clip_height; i++) {
         gra.DrawLine(Pens.Black, 0, i * clip_height, picturebox.Width, i * clip_height);
       }
 
+      // アイテム描画
       foreach (var item in items) {
         gra.DrawRectangle(Pens.Black, item.position, item.layer * clip_height, item.width, clip_height);
         gra.FillRectangle(item.kind_to_brush(), item.position, item.layer * clip_height, item.width, clip_height);
@@ -87,6 +112,19 @@ namespace sanji {
     }
 
     public void timeline_MouseDown(object sender, MouseEventArgs e) {
+      // 右クリック
+      if (e.Button == MouseButtons.Right) {
+        var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
+        var clicked_item = get_item_index_from_loc(pos, layer);
+
+        if (clicked_item == -1) {
+
+        }
+        else {
+        }
+
+        return;
+      }
 
     }
 

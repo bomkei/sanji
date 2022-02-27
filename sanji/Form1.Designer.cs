@@ -98,7 +98,7 @@ namespace sanji
       this.ctxMenuStrip_timeline.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.追加ToolStripMenuItem});
       this.ctxMenuStrip_timeline.Name = "ctxMenuStrip_timeline";
-      this.ctxMenuStrip_timeline.Size = new System.Drawing.Size(144, 26);
+      this.ctxMenuStrip_timeline.Size = new System.Drawing.Size(181, 48);
       // 
       // ctxMenuStrip_tl_item
       // 
@@ -151,10 +151,10 @@ namespace sanji
     private System.Windows.Forms.PictureBox picturebox_timeline;
     private System.Windows.Forms.PictureBox picturebox_player_scrollbar;
     private System.Windows.Forms.ToolStripMenuItem ファイルFToolStripMenuItem;
-    private System.Windows.Forms.ContextMenuStrip ctxMenuStrip_timeline;
     private System.Windows.Forms.ToolStripMenuItem 追加ToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem テキストToolStripMenuItem;
-    private System.Windows.Forms.ContextMenuStrip ctxMenuStrip_tl_item;
+    public System.Windows.Forms.ContextMenuStrip ctxMenuStrip_timeline;
+    public System.Windows.Forms.ContextMenuStrip ctxMenuStrip_tl_item;
   }
 }
 
