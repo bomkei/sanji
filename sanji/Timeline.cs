@@ -50,7 +50,7 @@ namespace sanji {
     public readonly int BMP_WIDTH = 2000;
     public readonly int BMP_HEIGHT = 1000;
 
-    public int clip_height = 32;
+    public int item_height = 32;
 
     public List<Item> items;
     public ColorProperty color_property;
@@ -62,8 +62,13 @@ namespace sanji {
       MoveItem
     }
 
+    private struct ClickedItemInfo {
+      public int index;
+      public int diff;
+    }
+
     private ClickStatus click_status;
-    private int clicked_item_index;
+    private ClickedItemInfo click_info;
 
 
     public Timeline() {
@@ -78,7 +83,7 @@ namespace sanji {
     }
 
     public (int, int) mouse_pos_to_item_pos(int mx, int my) {
-      return (mx, my / clip_height);
+      return (mx, my / item_height);
     }
     
     public Point mouse_pos_to_item_point(int mx, int my) {
@@ -108,17 +113,17 @@ namespace sanji {
       gra.Clear(Color.White);
 
       // ボーダー
-      for (int i = 0; i <= picturebox.Height / clip_height; i++) {
-        gra.DrawLine(Pens.Black, 0, i * clip_height, picturebox.Width, i * clip_height);
+      for (int i = 0; i <= picturebox.Height / item_height; i++) {
+        gra.DrawLine(Pens.Black, 0, i * item_height, picturebox.Width, i * item_height);
       }
 
       // アイテム描画
       foreach (var item in items) {
         var rect = new Rectangle {
           X = item.position,
-          Y = item.layer * clip_height + 4,
+          Y = item.layer * item_height + 4,
           Width = item.width,
-          Height = clip_height - 6
+          Height = item_height - 6
         };
 
         gra.FillRectangle(item.kind_to_brush(), rect);
@@ -130,11 +135,11 @@ namespace sanji {
 
     public void timeline_MouseDown(object sender, MouseEventArgs e) {
       var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
-      clicked_item_index = get_item_index_from_loc(pos, layer);
+      click_info.index = get_item_index_from_loc(pos, layer);
 
       // 右クリック
       if (e.Button == MouseButtons.Right) {
-        if (clicked_item_index == -1) {
+        if (click_info.index == -1) {
           Form1.form1_instance.ctxMenuStrip_timeline.Show(Form1.form1_instance.picturebox_timeline, e.Location);
         }
         else {
@@ -145,8 +150,11 @@ namespace sanji {
       }
 
 
-      if (clicked_item_index != -1) {
+      if (click_info.index != -1) {
+        var item = items[click_info.index];
+
         click_status = ClickStatus.MoveItem;
+        click_info.diff = e.X - item.position;
       }
 
 
@@ -159,10 +167,18 @@ namespace sanji {
 
       switch (click_status) {
         case ClickStatus.MoveItem: {
-          var item = items[clicked_item_index];
+          var item = items[click_info.index];
+          var (pos, layer) = (e.X - click_info.diff, e.Y / item_height);
 
-          item.position = e.X;
+          if (pos < 0) {
+            pos = 0;
+          }
 
+          if (layer < 0) {
+            layer = 0;
+          }
+
+          (item.position, item.layer) = (pos, layer);
           break;
         }
       }
