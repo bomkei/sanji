@@ -31,21 +31,24 @@ namespace sanji
     {
       this.components = new System.ComponentModel.Container();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+      this.ファイルFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.picturebox_preview = new System.Windows.Forms.PictureBox();
       this.picturebox_timeline = new System.Windows.Forms.PictureBox();
       this.picturebox_player_scrollbar = new System.Windows.Forms.PictureBox();
-      this.ファイルFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.ctxMenuStrip_timeline = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.ctxMenuStrip_tl_item = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.追加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.テキストToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.ctxMenuStrip_tl_item = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.カットToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.menuStrip1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_preview)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_timeline)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_player_scrollbar)).BeginInit();
       this.ctxMenuStrip_timeline.SuspendLayout();
+      this.ctxMenuStrip_tl_item.SuspendLayout();
       this.SuspendLayout();
       // 
       // menuStrip1
@@ -58,6 +61,28 @@ namespace sanji
       this.menuStrip1.Size = new System.Drawing.Size(1014, 24);
       this.menuStrip1.TabIndex = 0;
       this.menuStrip1.Text = "menuStrip1";
+      // 
+      // ファイルFToolStripMenuItem
+      // 
+      this.ファイルFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.設定ToolStripMenuItem,
+            this.終了ToolStripMenuItem});
+      this.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
+      this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+      this.ファイルFToolStripMenuItem.Text = "ファイル(&F)";
+      // 
+      // 設定ToolStripMenuItem
+      // 
+      this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
+      this.設定ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+      this.設定ToolStripMenuItem.Text = "設定";
+      // 
+      // 終了ToolStripMenuItem
+      // 
+      this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
+      this.終了ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+      this.終了ToolStripMenuItem.Text = "終了";
+      this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
       // 
       // picturebox_preview
       // 
@@ -89,15 +114,6 @@ namespace sanji
       this.picturebox_player_scrollbar.TabIndex = 3;
       this.picturebox_player_scrollbar.TabStop = false;
       // 
-      // ファイルFToolStripMenuItem
-      // 
-      this.ファイルFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.設定ToolStripMenuItem,
-            this.終了ToolStripMenuItem});
-      this.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
-      this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-      this.ファイルFToolStripMenuItem.Text = "ファイル(&F)";
-      // 
       // ctxMenuStrip_timeline
       // 
       this.ctxMenuStrip_timeline.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -105,38 +121,41 @@ namespace sanji
       this.ctxMenuStrip_timeline.Name = "ctxMenuStrip_timeline";
       this.ctxMenuStrip_timeline.Size = new System.Drawing.Size(144, 26);
       // 
-      // ctxMenuStrip_tl_item
-      // 
-      this.ctxMenuStrip_tl_item.Name = "ctxMenuStrip_tl_item";
-      this.ctxMenuStrip_tl_item.Size = new System.Drawing.Size(61, 4);
-      // 
       // 追加ToolStripMenuItem
       // 
       this.追加ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.テキストToolStripMenuItem});
       this.追加ToolStripMenuItem.Name = "追加ToolStripMenuItem";
-      this.追加ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.追加ToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
       this.追加ToolStripMenuItem.Text = "アイテムを追加";
       // 
       // テキストToolStripMenuItem
       // 
       this.テキストToolStripMenuItem.Name = "テキストToolStripMenuItem";
-      this.テキストToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.テキストToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
       this.テキストToolStripMenuItem.Text = "テキスト";
       this.テキストToolStripMenuItem.Click += new System.EventHandler(this.テキストToolStripMenuItem_Click);
       // 
-      // 設定ToolStripMenuItem
+      // ctxMenuStrip_tl_item
       // 
-      this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
-      this.設定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.設定ToolStripMenuItem.Text = "設定";
+      this.ctxMenuStrip_tl_item.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.編集ToolStripMenuItem});
+      this.ctxMenuStrip_tl_item.Name = "ctxMenuStrip_tl_item";
+      this.ctxMenuStrip_tl_item.Size = new System.Drawing.Size(181, 48);
       // 
-      // 終了ToolStripMenuItem
+      // 編集ToolStripMenuItem
       // 
-      this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
-      this.終了ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.終了ToolStripMenuItem.Text = "終了";
-      this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
+      this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.カットToolStripMenuItem});
+      this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
+      this.編集ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.編集ToolStripMenuItem.Text = "編集";
+      // 
+      // カットToolStripMenuItem
+      // 
+      this.カットToolStripMenuItem.Name = "カットToolStripMenuItem";
+      this.カットToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+      this.カットToolStripMenuItem.Text = "カット";
       // 
       // Form1
       // 
@@ -157,6 +176,7 @@ namespace sanji
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_timeline)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_player_scrollbar)).EndInit();
       this.ctxMenuStrip_timeline.ResumeLayout(false);
+      this.ctxMenuStrip_tl_item.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -175,6 +195,8 @@ namespace sanji
     public System.Windows.Forms.PictureBox picturebox_timeline;
     private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem カットToolStripMenuItem;
   }
 }
 

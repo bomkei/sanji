@@ -42,6 +42,7 @@ namespace sanji {
     }
 
     public struct ColorProperty {
+      // UI の色の設定とかいつか変えれるようにしたい
       public Color background;
       public Color bar;
     }
@@ -55,6 +56,15 @@ namespace sanji {
     public ColorProperty color_property;
     public Bitmap bitmap;
     private Graphics gra;
+
+    private enum ClickStatus {
+      None,
+      MoveItem
+    }
+
+    private ClickStatus click_status;
+    private int clicked_item_index;
+
 
     public Timeline() {
       items = new List<Item>();
@@ -119,12 +129,12 @@ namespace sanji {
     }
 
     public void timeline_MouseDown(object sender, MouseEventArgs e) {
+      var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
+      clicked_item_index = get_item_index_from_loc(pos, layer);
+
       // 右クリック
       if (e.Button == MouseButtons.Right) {
-        var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
-        var clicked_item = get_item_index_from_loc(pos, layer);
-
-        if (clicked_item == -1) {
+        if (clicked_item_index == -1) {
           Form1.form1_instance.ctxMenuStrip_timeline.Show(Form1.form1_instance.picturebox_timeline, e.Location);
         }
         else {
@@ -134,14 +144,36 @@ namespace sanji {
         return;
       }
 
+
+      if (clicked_item_index != -1) {
+        click_status = ClickStatus.MoveItem;
+      }
+
+
     }
 
     public void timeline_MouseMove(object sender, MouseEventArgs e) {
+      if (click_status == ClickStatus.None) {
+        return;
+      }
 
+      switch (click_status) {
+        case ClickStatus.MoveItem: {
+          var item = items[clicked_item_index];
+
+          item.position = e.X;
+
+          break;
+        }
+      }
     }
 
     public void timeline_MouseUp(object sender, MouseEventArgs e) {
+      if (click_status == ClickStatus.None) {
+        return;
+      }
 
+      click_status = ClickStatus.None;
     }
   }
 }

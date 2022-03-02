@@ -42,14 +42,17 @@ namespace sanji {
 
     private void picturebox_timeline_MouseDown(object sender, MouseEventArgs e) {
       timeline.timeline_MouseDown(sender, e);
+      draw();
     }
 
     private void picturebox_timeline_MouseMove(object sender, MouseEventArgs e) {
       timeline.timeline_MouseMove(sender, e);
+      draw();
     }
 
     private void picturebox_timeline_MouseUp(object sender, MouseEventArgs e) {
       timeline.timeline_MouseUp(sender, e);
+      draw();
     }
 
     private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
