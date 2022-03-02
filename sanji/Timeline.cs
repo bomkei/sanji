@@ -85,17 +85,17 @@ namespace sanji {
     public (int, int) mouse_pos_to_item_pos(int mx, int my) {
       return (mx, my / item_height);
     }
-    
+
     public Point mouse_pos_to_item_point(int mx, int my) {
       var (x, y) = mouse_pos_to_item_pos(mx, my);
       return new Point(x, y);
     }
 
-    public int get_item_index_from_loc(int position, int layer) {
+    public int get_item_index_from_loc(int position, int layer, int ignore = -1) {
       for (int i = 0; i < items.Count; i++) {
         var item = items[i];
 
-        if (item.layer != layer)
+        if (item.layer != layer || i == ignore)
           continue;
 
         if (item.position <= position && position < item.position + item.width)
@@ -170,12 +170,31 @@ namespace sanji {
           var item = items[click_info.index];
           var (pos, layer) = (e.X - click_info.diff, e.Y / item_height);
 
+          var hit_left = get_item_index_from_loc(pos - 1, layer);
+          var hit_right = get_item_index_from_loc(pos + item.width + 1, layer);
+
           if (pos < 0) {
             pos = 0;
           }
 
           if (layer < 0) {
             layer = 0;
+          }
+
+          if (hit_left != -1 && hit_left != click_info.index) {
+            pos = items[hit_left].position + items[hit_left].width + 1;
+
+            if (get_item_index_from_loc(pos, layer, click_info.index) != -1 ) {
+              break;
+            }
+          }
+
+          if (hit_right != -1 && hit_right != click_info.index) {
+            pos = items[hit_right].position - item.width - 1;
+
+            if (get_item_index_from_loc(pos, layer, click_info.index) != -1) {
+              break;
+            }
           }
 
           (item.position, item.layer) = (pos, layer);
