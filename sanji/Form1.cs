@@ -33,7 +33,9 @@ namespace sanji {
     private void テキストToolStripMenuItem_Click(object sender, EventArgs e) {
       var item = new Timeline.Item {
         kind = Timeline.Item.Kind.Text,
-        width = 100
+        width = 100,
+        layer = timeline.click_info.loc.Y,
+        position = timeline.click_info.loc.X
       };
 
       timeline.add_item(item);

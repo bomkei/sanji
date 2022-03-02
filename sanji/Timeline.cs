@@ -62,13 +62,14 @@ namespace sanji {
       MoveItem
     }
 
-    private struct ClickedItemInfo {
+    public struct ClickedItemInfo {
       public int index;
       public int diff;
+      public Point loc;
     }
 
     private ClickStatus click_status;
-    private ClickedItemInfo click_info;
+    public ClickedItemInfo click_info;
 
 
     public Timeline() {
@@ -105,8 +106,30 @@ namespace sanji {
       return -1;
     }
 
+    private int check_item_hit(int index, int ignore = -1) {
+      var item = items[index];
+
+      for (int i = 0; i < item.width; i++) {
+        var j = get_item_index_from_loc(item.position + i, item.layer, index);
+
+        if (j != -1) {
+          return j;
+        }
+      }
+
+      return -1;
+    }
+
     public void add_item(Item item) {
       items.Add(item);
+
+      while (true) {
+        if (check_item_hit(items.IndexOf(item)) == -1) {
+          break;
+        }
+
+        item.position++;
+      }
     }
 
     public void draw(ref PictureBox picturebox) {
@@ -122,7 +145,7 @@ namespace sanji {
         var rect = new Rectangle {
           X = item.position,
           Y = item.layer * item_height + 4,
-          Width = item.width,
+          Width = item.width - 1,
           Height = item_height - 6
         };
 
@@ -135,7 +158,9 @@ namespace sanji {
 
     public void timeline_MouseDown(object sender, MouseEventArgs e) {
       var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
+
       click_info.index = get_item_index_from_loc(pos, layer);
+      click_info.loc = new Point(pos, layer);
 
       // 右クリック
       if (e.Button == MouseButtons.Right) {
@@ -182,7 +207,7 @@ namespace sanji {
           }
 
           if (hit_left != -1 && hit_left != click_info.index) {
-            pos = items[hit_left].position + items[hit_left].width + 1;
+            pos = items[hit_left].position + items[hit_left].width;
 
             if (get_item_index_from_loc(pos, layer, click_info.index) != -1 ) {
               break;
@@ -190,7 +215,7 @@ namespace sanji {
           }
 
           if (hit_right != -1 && hit_right != click_info.index) {
-            pos = items[hit_right].position - item.width - 1;
+            pos = items[hit_right].position - item.width;
 
             if (get_item_index_from_loc(pos, layer, click_info.index) != -1) {
               break;
