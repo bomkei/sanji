@@ -195,9 +195,6 @@ namespace sanji {
           var item = items[click_info.index];
           var (pos, layer) = (e.X - click_info.diff, e.Y / item_height);
 
-          var hit_left = get_item_index_from_loc(pos - 1, layer);
-          var hit_right = get_item_index_from_loc(pos + item.width + 1, layer);
-
           if (pos < 0) {
             pos = 0;
           }
@@ -205,6 +202,9 @@ namespace sanji {
           if (layer < 0) {
             layer = 0;
           }
+
+          var hit_left = get_item_index_from_loc(pos, layer);
+          var hit_right = get_item_index_from_loc(pos + item.width - 1, layer);
 
           if (hit_left != -1 && hit_left != click_info.index) {
             pos = items[hit_left].position + items[hit_left].width;
