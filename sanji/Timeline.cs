@@ -49,7 +49,7 @@ namespace sanji {
 
     public readonly int BMP_WIDTH = 2000;
     public readonly int BMP_HEIGHT = 1000;
-
+    
     public int item_height = 32;
 
     public List<Item> items;
@@ -57,18 +57,18 @@ namespace sanji {
     public Bitmap bitmap;
     private Graphics gra;
 
-    private enum ClickStatus {
-      None,
-      MoveItem
-    }
-
     public struct ClickedItemInfo {
+      public enum BehaviorKind {
+        None,
+        MoveItem
+      }
+
       public int index;
       public int diff;
       public Point loc;
+      public BehaviorKind behavior_kind;
     }
 
-    private ClickStatus click_status;
     public ClickedItemInfo click_info;
 
 
@@ -178,7 +178,7 @@ namespace sanji {
       if (click_info.index != -1) {
         var item = items[click_info.index];
 
-        click_status = ClickStatus.MoveItem;
+        click_info.behavior_kind = ClickedItemInfo.BehaviorKind.MoveItem;
         click_info.diff = e.X - item.position;
       }
 
@@ -186,12 +186,12 @@ namespace sanji {
     }
 
     public void timeline_MouseMove(object sender, MouseEventArgs e) {
-      if (click_status == ClickStatus.None) {
+      if (click_info.behavior_kind == ClickedItemInfo.BehaviorKind.None) {
         return;
       }
 
-      switch (click_status) {
-        case ClickStatus.MoveItem: {
+      switch (click_info.behavior_kind) {
+        case ClickedItemInfo.BehaviorKind.MoveItem: {
           var item = items[click_info.index];
           var (pos, layer) = (e.X - click_info.diff, e.Y / item_height);
 
@@ -222,6 +222,10 @@ namespace sanji {
             }
           }
 
+          if (pos < 0) {
+            break;
+          }
+
           (item.position, item.layer) = (pos, layer);
           break;
         }
@@ -229,11 +233,11 @@ namespace sanji {
     }
 
     public void timeline_MouseUp(object sender, MouseEventArgs e) {
-      if (click_status == ClickStatus.None) {
+      if (click_info.behavior_kind == ClickedItemInfo.BehaviorKind.None) {
         return;
       }
 
-      click_status = ClickStatus.None;
+      click_info.behavior_kind = ClickedItemInfo.BehaviorKind.None;
     }
   }
 }

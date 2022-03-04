@@ -10,10 +10,14 @@ using System.Windows.Forms;
 
 namespace sanji {
   public partial class Form1 : Form {
+    [System.Runtime.InteropServices.DllImport("Kernel32.dll")]
+    private static extern bool AllocConsole();
+
     Timeline timeline;
     public static Form1 form1_instance;
 
     public Form1() {
+      AllocConsole();
       InitializeComponent();
 
       form1_instance = this;
