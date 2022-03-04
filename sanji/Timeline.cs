@@ -21,6 +21,18 @@ namespace sanji {
       public int layer;
       public int position;
 
+      public Rectangle get_rect {
+        get {
+          return new Rectangle {
+            X = this.position,
+            Y = this.layer * Timeline.get_instance.item_height + 4,
+            Width = this.width - 1,
+            Height = Timeline.get_instance.item_height - 6
+          };
+        }
+      }
+
+
       public Item() {
         kind = Kind.Text;
         width = 1;
@@ -47,9 +59,30 @@ namespace sanji {
       public Color bar;
     }
 
+    public class TimelineInstanceIsNotAsssignmented : Exception {
+      public TimelineInstanceIsNotAsssignmented()
+        : base("static instance of Timeline is not assignmented.", null) {
+
+      }
+    }
+
     public readonly int BMP_WIDTH = 2000;
     public readonly int BMP_HEIGHT = 1000;
-    
+
+
+    // 外部・子クラスからのインスタンス取得用
+    // 今のところ はシングルトンにしています
+    private static Timeline _instance;
+    public static Timeline get_instance {
+      get {
+        if (_instance == null) {
+          throw new TimelineInstanceIsNotAsssignmented();
+        }
+
+        return _instance;
+      }
+    }
+
     public int item_height = 32;
 
     public List<Item> items;
@@ -57,25 +90,42 @@ namespace sanji {
     public Bitmap bitmap;
     private Graphics gra;
 
-    public struct ClickedItemInfo {
+    public class ClickedItemInfo {
       public enum BehaviorKind {
         None,
         MoveItem
+      }
+
+      private static ClickedItemInfo _instance;
+      public static ClickedItemInfo get_instance() {
+        if (_instance == null) {
+          _instance = new ClickedItemInfo();
+        }
+
+        return _instance;
+      }
+
+      private ClickedItemInfo() {
       }
 
       public int index;
       public int diff;
       public Point loc;
       public BehaviorKind behavior_kind;
+      public static int dash_counter; // 点線描画の回転
     }
 
     public ClickedItemInfo click_info;
 
 
     public Timeline() {
+      _instance = this;
+
       items = new List<Item>();
       bitmap = new Bitmap(BMP_WIDTH, BMP_HEIGHT);
       gra = Graphics.FromImage(bitmap);
+
+      click_info = ClickedItemInfo.get_instance();
 
       color_property = new ColorProperty {
         background = Color.White,
@@ -132,6 +182,9 @@ namespace sanji {
       }
     }
 
+    // ------------------------------------------------------------ //
+    //  描画
+    // ------------------------------------------------------------ //
     public void draw(ref PictureBox picturebox) {
       gra.Clear(Color.White);
 
@@ -142,16 +195,19 @@ namespace sanji {
 
       // アイテム描画
       foreach (var item in items) {
-        var rect = new Rectangle {
-          X = item.position,
-          Y = item.layer * item_height + 4,
-          Width = item.width - 1,
-          Height = item_height - 6
-        };
+        var rect = item.get_rect;
 
         gra.FillRectangle(item.kind_to_brush(), rect);
         gra.DrawRectangle(Pens.Black, rect);
       }
+
+      // クリックされたアイテムの枠を点線にする
+      if (items.Count > 0 && click_info.index != -1) {
+        var rect = items[click_info.index].get_rect;
+
+        gra.DrawRectangle(new Pen(Color.White) { DashStyle = System.Drawing.Drawing2D.DashStyle.Dash }, rect);
+      }
+
 
       picturebox.Image = bitmap;
     }
