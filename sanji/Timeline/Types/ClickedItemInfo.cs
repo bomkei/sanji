@@ -32,6 +32,7 @@ namespace sanji {
       public int diff;
       public Point loc;
       public BehaviorKind behavior_kind;
+      public static int dash_tick;
       public static int dash_counter; // 点線描画の回転
     }
 

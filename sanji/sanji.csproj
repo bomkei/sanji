@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GraphicsExtensions.cs" />
     <Compile Include="Timeline\Draw.cs" />
     <Compile Include="Timeline\MouseEvents.cs" />
     <Compile Include="Timeline\Types\ClickedItemInfo.cs" />
@@ -58,8 +59,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Timeline\Types\TL_Exceptions.cs" />
-    <Compile Include="Timeline\Types\TL_Item.cs" />
+    <Compile Include="Timeline\Types\Exceptions.cs" />
+    <Compile Include="Timeline\Types\Item.cs" />
+    <Compile Include="Timeline\Values.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,7 +88,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Timeline\Utils\TL_CoordConv.cs" />
+    <Compile Include="Timeline\Utils\CoordConv.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

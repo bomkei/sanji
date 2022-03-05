@@ -33,8 +33,8 @@ namespace sanji {
       // クリックされたアイテムの枠を点線にする
       if (items.Count > 0 && click_info.index != -1) {
         var rect = items[click_info.index].get_rect();
-
-        gra.DrawRectangle(new Pen(Color.White) { DashStyle = System.Drawing.Drawing2D.DashStyle.Dash }, rect);
+        
+        gra.DrawDashRectangle(0, 6, 3, Pens.White, Pens.Black, rect);
       }
 
 
