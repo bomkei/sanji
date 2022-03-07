@@ -58,7 +58,6 @@ namespace sanji {
           }
 
           var hit_left = get_item_index_from_loc(pos, layer, click_info.index);
-          var hit_right = get_item_index_from_loc(pos + item.width - 1, layer, click_info.index);
 
           if (hit_left != -1) {
             pos = items[hit_left].position + items[hit_left].width;
@@ -67,6 +66,8 @@ namespace sanji {
               break;
             }
           }
+          
+          var hit_right = get_item_index_from_loc(pos + item.width - 1, layer, click_info.index);
 
           if (hit_right != -1) {
             pos = items[hit_right].position - item.width;
