@@ -46,5 +46,12 @@ namespace sanji {
 
       return -1;
     }
+
+    private int item_pos_to_draw_pos(int pos) {
+
+      Console.WriteLine("Converter.cs: item_pos_to_draw_pos() は正しく実装されていません。");
+
+      return pos;
+    }
   }
 }

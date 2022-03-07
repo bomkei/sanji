@@ -27,6 +27,8 @@ namespace sanji {
     public readonly int BMP_WIDTH = 2000;
     public readonly int BMP_HEIGHT = 1000;
 
+    public readonly int CHANGE_WIDTH_CLICK_RANGE = 8;
+
 
     // 外部・子クラスからのインスタンス取得用
     // 今のところ はシングルトンにしています

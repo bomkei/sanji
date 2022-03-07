@@ -13,7 +13,9 @@ namespace sanji {
     public class ClickedItemInfo {
       public enum BehaviorKind {
         None,
-        MoveItem
+        MoveItem,
+        ChangeItemWidth_Left,
+        ChangeItemWidth_Right,
       }
 
       private static ClickedItemInfo _instance;
@@ -27,6 +29,10 @@ namespace sanji {
 
       private ClickedItemInfo() {
       }
+
+      public int change_width_minimum_pos; // left
+      public int change_width_maximum_pos; // right
+      public int change_width_base_pos;
 
       public int index;
       public int diff;
