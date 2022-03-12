@@ -34,12 +34,17 @@ namespace sanji {
       public int change_width_maximum_pos; // right
       public int change_width_base_pos;
 
+      public int move_min;
+      public int move_max;
+      public bool range_updated;
+
       public int index;
       public int diff;
       public Point loc;
       public BehaviorKind behavior_kind;
       public static int dash_tick;
       public static int dash_counter; // 点線描画の回転
+
     }
 
 

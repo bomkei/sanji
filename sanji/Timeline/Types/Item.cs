@@ -20,7 +20,7 @@ namespace sanji {
       public int width;
       public int layer;
       public int position;
-      public int rightpos{ get{ return position + width; } }
+      public int rightpos{ get{ return position + width - 1; } }
 
       public Rectangle get_rect() {
         return new Rectangle {

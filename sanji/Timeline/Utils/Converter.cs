@@ -33,23 +33,8 @@ namespace sanji {
       return -1;
     }
 
-    private int check_item_hit(int index, int ignore = -1) {
-      var item = items[index];
-
-      for (int i = 0; i < item.width; i++) {
-        var j = get_item_index_from_loc(item.position + i, item.layer, index);
-
-        if (j != -1) {
-          return j;
-        }
-      }
-
-      return -1;
-    }
-
     private int item_pos_to_draw_pos(int pos) {
 
-      Console.WriteLine("Converter.cs: item_pos_to_draw_pos() は正しく実装されていません。");
 
       return pos;
     }

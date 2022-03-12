@@ -10,6 +10,53 @@ using System.Windows.Forms;
 
 namespace sanji {
   public partial class Timeline {
+
+    private (int, int) get_move_range(int item_index) {
+      int min = 0;
+      int max = int.MaxValue;
+
+      var item = items[item_index];
+
+      for (int i = 0; i < items.Count; i++) {
+        var x = items[i];
+
+        if (i == item_index || x.layer != item.layer)
+          continue;
+
+        if (min < x.rightpos && x.rightpos < item.position) {
+          min = x.rightpos + 1;
+        }
+
+        if (item.position <= x.position - item.width && x.position - item.width < max) {
+          max = x.position - item.width;
+        }
+      }
+
+      return (min, max);
+    }
+
+    private void change_mouse_cursor(object s, MouseEventArgs e) {
+      var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
+      int item_i = get_item_index_from_loc(pos, layer);
+
+      if (item_i == -1) {
+        Form1.form1_instance.Cursor = Cursors.Default;
+        return;
+      }
+
+      var item = items[item_i];
+
+      if (pos < item_pos_to_draw_pos(item.position) + CHANGE_WIDTH_CLICK_RANGE) {
+        Form1.form1_instance.Cursor = Cursors.SizeWE;
+      }
+      else if (pos >= item_pos_to_draw_pos(item.position + item.width) - CHANGE_WIDTH_CLICK_RANGE) {
+        Form1.form1_instance.Cursor = Cursors.SizeWE;
+      }
+      else {
+        Form1.form1_instance.Cursor = Cursors.Default;
+      }
+    }
+
     public void timeline_MouseDown(object sender, MouseEventArgs e) {
       var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
 
@@ -18,6 +65,7 @@ namespace sanji {
 
       click_info.change_width_minimum_pos = 0;
       click_info.change_width_maximum_pos = int.MaxValue;
+      click_info.range_updated = false;
 
       // 右クリック
       if (e.Button == MouseButtons.Right) {
@@ -47,7 +95,7 @@ namespace sanji {
             }
           }
         }
-        
+
         // 長さを変更 (右)
         else if (pos >= item_pos_to_draw_pos(item.position + item.width) - CHANGE_WIDTH_CLICK_RANGE) {
           click_info.behavior_kind = ClickedItemInfo.BehaviorKind.ChangeItemWidth_Right;
@@ -65,29 +113,9 @@ namespace sanji {
         else {
           click_info.behavior_kind = ClickedItemInfo.BehaviorKind.MoveItem;
           click_info.diff = e.X - item.position;
+
+          (click_info.move_min, click_info.move_max) = get_move_range(click_info.index);
         }
-      }
-    }
-
-    private void change_mouse_cursor(object s, MouseEventArgs e) {
-      var (pos, layer) = mouse_pos_to_item_pos(e.X, e.Y);
-      int item_i = get_item_index_from_loc(pos, layer);
-
-      if (item_i == -1) {
-        Form1.form1_instance.Cursor = Cursors.Default;
-        return;
-      }
-
-      var item = items[item_i];
-
-      if (pos < item_pos_to_draw_pos(item.position) + CHANGE_WIDTH_CLICK_RANGE) {
-        Form1.form1_instance.Cursor = Cursors.SizeWE;
-      }
-      else if (pos >= item_pos_to_draw_pos(item.position + item.width) - CHANGE_WIDTH_CLICK_RANGE) {
-        Form1.form1_instance.Cursor = Cursors.SizeWE;
-      }
-      else {
-        Form1.form1_instance.Cursor = Cursors.Default;
       }
     }
 
@@ -104,44 +132,30 @@ namespace sanji {
 
       switch (click_info.behavior_kind) {
         case ClickedItemInfo.BehaviorKind.MoveItem: {
-          //var item = items[click_info.index];
-          //var (pos, layer) = (e.X - click_info.diff, e.Y / item_height);
-          
+          var (save_pos, save_layer) = (item.position, item.layer);
+
           pos -= click_info.diff;
 
-          if (pos < 0) {
-            pos = 0;
-          }
+          (item.position, item.layer) = (pos, layer);
+          var hit = check_item_hit(click_info.index);
 
-          if (layer < 0) {
-            layer = 0;
-          }
-
-          var hit_left = get_item_index_from_loc(pos, layer, click_info.index);
-
-          if (hit_left != -1) {
-            pos = items[hit_left].position + items[hit_left].width;
-
-            if (get_item_index_from_loc(pos, layer, click_info.index) != -1) {
-              break;
-            }
-          }
-          
-          var hit_right = get_item_index_from_loc(pos + item.width - 1, layer, click_info.index);
-
-          if (hit_right != -1) {
-            pos = items[hit_right].position - item.width;
-
-            if (get_item_index_from_loc(pos, layer, click_info.index) != -1) {
-              break;
-            }
-          }
-
-          if (pos < 0) {
+          if (hit == -1) {
+            (click_info.move_min, click_info.move_max) = get_move_range(click_info.index);
             break;
           }
+          else {
+            if (pos < click_info.move_min) {
+              pos = click_info.move_min;
+            }
 
-          (item.position, item.layer) = (pos, layer);
+            if (pos > click_info.move_max) {
+              pos = click_info.move_max;
+            }
+
+            (item.position, item.layer) = (pos, save_layer);
+          }
+
+
           break;
         }
 
