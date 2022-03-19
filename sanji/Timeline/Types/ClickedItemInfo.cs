@@ -41,7 +41,10 @@ namespace sanji {
       public int index;
       public int diff;
       public Point loc;
+
+      // マウスイベント用関数が行う動作を判別するための Kind です ( 名前が微妙 )
       public BehaviorKind behavior_kind;
+
       public static int dash_tick;
       public static int dash_counter; // 点線描画の回転
 

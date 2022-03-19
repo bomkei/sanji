@@ -85,15 +85,18 @@ namespace sanji {
 
         // 長さを変更 (左)
         if (pos < item_pos_to_draw_pos(item.position) + CHANGE_WIDTH_CLICK_RANGE) {
+          // 動作の種類
           click_info.behavior_kind = ClickedItemInfo.BehaviorKind.ChangeItemWidth_Left;
-          click_info.change_width_base_pos = item.position + item.width;
-          click_info.change_width_minimum_pos = item.position;
 
-          for (int i = item.position - 1; i >= 0; i--) {
-            if (get_item_index_from_loc(i, layer, click_info.index) != -1) {
-              click_info.change_width_minimum_pos = i + 1;
-              break;
-            }
+          // ?
+          click_info.change_width_base_pos = item.position + item.width;
+
+          // 
+          click_info.change_width_minimum_pos = 0;
+
+          // 左側にアイテムがあるときは、そのアイテムの rightpos までとする
+          foreach (var ix in items) {
+          
           }
         }
 
