@@ -30,17 +30,29 @@ namespace sanji {
       private ClickedItemInfo() {
       }
 
+      // 長さ変更するときの制限 (?)
       public int change_width_minimum_pos; // left
       public int change_width_maximum_pos; // right
+
+      // 
       public int change_width_base_pos;
 
+      // (*1)
+      // 
       public int move_min;
       public int move_max;
+
+      // *1 が更新されたかどうか
+      // 
       public bool range_updated;
 
-      public int index;
+      public int index;   // クリックしたアイテムのインデックス
+
+      // アイテムの position とクリックした座標の差
+      // つかんだアイテムを移動するときに使用する
       public int diff;
-      public Point loc;
+
+      public Point loc; // ?
 
       // マウスイベント用関数が行う動作を判別するための Kind です ( 名前が微妙 )
       public BehaviorKind behavior_kind;
