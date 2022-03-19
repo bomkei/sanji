@@ -96,7 +96,11 @@ namespace sanji {
 
           // 左側にアイテムがあるときは、そのアイテムの rightpos までとする
           foreach (var ix in items) {
-          
+            if (ix.layer != layer)
+              continue;
+
+            if (ix.rightpos < item.position && click_info.change_width_minimum_pos < ix.position)
+              click_info.change_width_minimum_pos = ix.rightpos + 1;
           }
         }
 

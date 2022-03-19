@@ -38,7 +38,8 @@ namespace sanji {
       public int change_width_base_pos;
 
       // (*1)
-      // 
+      // アイテムを移動するときの移動可能範囲です
+      // マウスの座標にアイテムを置けるようになったとき、移動範囲が更新されます
       public int move_min;
       public int move_max;
 
