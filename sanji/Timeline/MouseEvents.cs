@@ -87,6 +87,7 @@ namespace sanji {
         if (pos < item_pos_to_draw_pos(item.position) + CHANGE_WIDTH_CLICK_RANGE) {
           click_info.behavior_kind = ClickedItemInfo.BehaviorKind.ChangeItemWidth_Left;
           click_info.change_width_base_pos = item.position + item.width;
+          click_info.change_width_minimum_pos = item.position;
 
           for (int i = item.position - 1; i >= 0; i--) {
             if (get_item_index_from_loc(i, layer, click_info.index) != -1) {
@@ -101,11 +102,12 @@ namespace sanji {
           click_info.behavior_kind = ClickedItemInfo.BehaviorKind.ChangeItemWidth_Right;
           click_info.change_width_base_pos = item.position;
 
-          for (int i = item.position + item.width + 1; i < click_info.change_width_maximum_pos; i++) {
-            if (get_item_index_from_loc(i, layer, click_info.index) != -1) {
-              click_info.change_width_maximum_pos = i;
-              break;
-            }
+          foreach (var ix in items) {
+            if (ix.layer != layer)
+              continue;
+
+            if (item.rightpos <= ix.position && click_info.change_width_base_pos < ix.position)
+              click_info.change_width_maximum_pos = ix.position;
           }
         }
 
@@ -136,6 +138,12 @@ namespace sanji {
 
           pos -= click_info.diff;
 
+          if (pos < 0)
+            pos = 0;
+
+          if (layer < 0)
+            layer = 0;
+
           (item.position, item.layer) = (pos, layer);
           var hit = check_item_hit(click_info.index);
 
@@ -154,7 +162,6 @@ namespace sanji {
 
             (item.position, item.layer) = (pos, save_layer);
           }
-
 
           break;
         }
