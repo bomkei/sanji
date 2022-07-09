@@ -1,7 +1,7 @@
 ﻿
 namespace sanji
 {
-  partial class Form1
+  partial class MainForm
   {
     /// <summary>
     /// 必要なデザイナー変数です。
@@ -141,23 +141,23 @@ namespace sanji
       this.ctxMenuStrip_tl_item.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.編集ToolStripMenuItem});
       this.ctxMenuStrip_tl_item.Name = "ctxMenuStrip_tl_item";
-      this.ctxMenuStrip_tl_item.Size = new System.Drawing.Size(181, 48);
+      this.ctxMenuStrip_tl_item.Size = new System.Drawing.Size(99, 26);
       // 
       // 編集ToolStripMenuItem
       // 
       this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.カットToolStripMenuItem});
       this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
-      this.編集ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.編集ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
       this.編集ToolStripMenuItem.Text = "編集";
       // 
       // カットToolStripMenuItem
       // 
       this.カットToolStripMenuItem.Name = "カットToolStripMenuItem";
-      this.カットToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+      this.カットToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
       this.カットToolStripMenuItem.Text = "カット";
       // 
-      // Form1
+      // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -167,8 +167,8 @@ namespace sanji
       this.Controls.Add(this.picturebox_preview);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
-      this.Name = "Form1";
-      this.Text = "Form1";
+      this.Name = "MainForm";
+      this.Text = "MainForm";
       this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();

@@ -40,20 +40,20 @@ namespace sanji {
       int item_i = get_item_index_from_loc(pos, layer);
 
       if (item_i == -1) {
-        Form1.form1_instance.Cursor = Cursors.Default;
+        MainForm.form1_instance.Cursor = Cursors.Default;
         return;
       }
 
       var item = items[item_i];
 
       if (pos < item_pos_to_draw_pos(item.position) + CHANGE_WIDTH_CLICK_RANGE) {
-        Form1.form1_instance.Cursor = Cursors.SizeWE;
+        MainForm.form1_instance.Cursor = Cursors.SizeWE;
       }
       else if (pos >= item_pos_to_draw_pos(item.position + item.width) - CHANGE_WIDTH_CLICK_RANGE) {
-        Form1.form1_instance.Cursor = Cursors.SizeWE;
+        MainForm.form1_instance.Cursor = Cursors.SizeWE;
       }
       else {
-        Form1.form1_instance.Cursor = Cursors.Default;
+        MainForm.form1_instance.Cursor = Cursors.Default;
       }
     }
 
@@ -70,10 +70,10 @@ namespace sanji {
       // 右クリック
       if (e.Button == MouseButtons.Right) {
         if (click_info.index == -1) {
-          Form1.form1_instance.ctxMenuStrip_timeline.Show(Form1.form1_instance.picturebox_timeline, e.Location);
+          MainForm.form1_instance.ctxMenuStrip_timeline.Show(MainForm.form1_instance.picturebox_timeline, e.Location);
         }
         else {
-          Form1.form1_instance.ctxMenuStrip_tl_item.Show(Form1.form1_instance.picturebox_timeline, e.Location);
+          MainForm.form1_instance.ctxMenuStrip_tl_item.Show(MainForm.form1_instance.picturebox_timeline, e.Location);
         }
 
         return;
