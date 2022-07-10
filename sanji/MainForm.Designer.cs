@@ -46,7 +46,7 @@ namespace sanji
             this.ファイルFToolStripMenuItem});
       this.menuStripMainForm.Location = new System.Drawing.Point(0, 0);
       this.menuStripMainForm.Name = "menuStripMainForm";
-      this.menuStripMainForm.Size = new System.Drawing.Size(783, 24);
+      this.menuStripMainForm.Size = new System.Drawing.Size(713, 24);
       this.menuStripMainForm.TabIndex = 0;
       this.menuStripMainForm.Text = "menuStrip1";
       // 
@@ -94,7 +94,7 @@ namespace sanji
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-      this.ClientSize = new System.Drawing.Size(783, 538);
+      this.ClientSize = new System.Drawing.Size(713, 468);
       this.Controls.Add(this.button1);
       this.Controls.Add(this.hScrollBar1);
       this.Controls.Add(this.picturebox_preview);
@@ -103,6 +103,7 @@ namespace sanji
       this.Name = "MainForm";
       this.Text = "preview window";
       this.Load += new System.EventHandler(this.MainForm_Load);
+      this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
       this.menuStripMainForm.ResumeLayout(false);
       this.menuStripMainForm.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_preview)).EndInit();

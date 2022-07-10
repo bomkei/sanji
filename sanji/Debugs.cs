@@ -11,7 +11,7 @@ namespace sanji {
     public static extern bool AllocConsole();
 
     private static void _Alert(string msg) {
-      var callStack = new StackFrame(2, true);
+      var callStack = new StackFrame(1, true);
 
       string file = callStack.GetFileName();
       int line = callStack.GetFileLineNumber();

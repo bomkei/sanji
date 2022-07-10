@@ -85,6 +85,7 @@ namespace sanji {
     
     public MouseBehaviorInfo msBehav;
     public List<Item> items;
+    public Point scrollval;
 
     public static Timeline Instance;
 
@@ -105,9 +106,17 @@ namespace sanji {
       // background
       gra.FillRectangle(background.ToColor().ToBrush(), 0, 0, picbox.Width, picbox.Height);
 
+      foreach (var item in items) {
+        DrawItem(item);
+      }
 
 
+    }
 
+    public void DrawItem(Item item) {
+      var loc = item.location;
+
+      loc.position -= scrollval.X;
     }
     // --------------------- //
 
