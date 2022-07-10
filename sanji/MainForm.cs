@@ -45,7 +45,7 @@ namespace sanji {
     void InitWindow() {
       var ctx = appCtx;
 
-      switch (ctx.windowMode) {
+      switch( ctx.windowMode ) {
         case WindowMode.One: {
           timelineForm.TopLevel = false;
 
@@ -78,11 +78,11 @@ namespace sanji {
     void OnMouseDown(object sender, MouseEventArgs e) {
 
     }
-    
+
     void OnMouseMove(object sender, MouseEventArgs e) {
 
     }
-    
+
     void OnMouseUp(object sender, MouseEventArgs e) {
 
     }
@@ -92,17 +92,6 @@ namespace sanji {
     }
 
     private void MainForm_SizeChanged(object sender, EventArgs e) {
-      //switch (this.WindowState) {
-      //  case FormWindowState.Minimized: {
-      //    timelineForm.WindowState = FormWindowState.Minimized;
-      //    break;
-      //  }
-
-      //  case FormWindowState.Normal: {
-      //    timelineForm.WindowState = FormWindowState.Normal;
-      //    break;
-      //  }
-      //}
     }
   }
 

@@ -22,7 +22,7 @@ namespace sanji {
       Console.WriteLine($"{item != null}");
 
       // クリックした場所にアイテムがある
-      if (item != null) {
+      if( item != null ) {
 
         // アイテム移動
         msBehav.Initialize(MouseBehaviorInfo.Kind.MoveItem, loc, item);
@@ -41,18 +41,18 @@ namespace sanji {
       var loc = MousePosToItemLoc(e.X, e.Y);
       var item = msBehav.clickedItem;
 
-      if (!msBehav.isDown)
+      if( !msBehav.isDown )
         return;
 
       var item_loc = loc;
       item_loc.position += msBehav.clickDiff;
 
-      switch (msBehav.kind) {
+      switch( msBehav.kind ) {
         case MouseBehaviorInfo.Kind.MoveItem: {
           Item collid;
 
-          if (!TryPlaceItem(item_loc, item, out collid)) {
-            if (collid.centerpos <= loc.position) {
+          if( !TryPlaceItem(item_loc, item, out collid) ) {
+            if( collid.centerpos <= loc.position ) {
               TryPlaceItem(new Item.Location(item_loc.layer, collid.endpos + 1), item, out collid);
             }
             else {
@@ -69,7 +69,7 @@ namespace sanji {
 
     public void OnMouseUp(object sender, MouseEventArgs e) {
 
-      if (!msBehav.isDown)
+      if( !msBehav.isDown )
         return;
 
 

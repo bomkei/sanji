@@ -21,8 +21,8 @@ namespace sanji {
     public static void DrawDashRectangle(this Graphics gra, int i, int imod, int imx, Pen pen, Pen spacepen, int x, int y, int width, int height) {
       int j = 0;
 
-      for (j = x; j <= x + width; j++, i++) {
-        if ((i % imod) < imx) {
+      for( j = x; j <= x + width; j++, i++ ) {
+        if( (i % imod) < imx ) {
           gra.DrawPixel(spacepen, j, y);
         }
         else {
@@ -30,8 +30,8 @@ namespace sanji {
         }
       }
 
-      for (j = y; j <= y + height; j++, i++) {
-        if ((i % imod) < imx) {
+      for( j = y; j <= y + height; j++, i++ ) {
+        if( (i % imod) < imx ) {
           gra.DrawPixel(spacepen, x + width, j);
         }
         else {
@@ -39,8 +39,8 @@ namespace sanji {
         }
       }
 
-      for (j = x + width; j >= x; j--, i++) {
-        if ((i % imod) < imx) {
+      for( j = x + width; j >= x; j--, i++ ) {
+        if( (i % imod) < imx ) {
           gra.DrawPixel(spacepen, j, y + height);
         }
         else {
@@ -48,8 +48,8 @@ namespace sanji {
         }
       }
 
-      for (j = y + height; j >= y; j--, i++) {
-        if ((i % imod) < imx) {
+      for( j = y + height; j >= y; j--, i++ ) {
+        if( (i % imod) < imx ) {
           gra.DrawPixel(spacepen, x, j);
         }
         else {

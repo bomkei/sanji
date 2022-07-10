@@ -31,9 +31,9 @@ namespace sanji {
     Stopwatch sw = new Stopwatch();
 
     PictureBox picbox;
+    Font font;
     Bitmap bmp;
     Graphics gra;
-    Graphics gra_picbox;
 
     public MouseBehaviorInfo msBehav;
     public List<Item> items;
@@ -45,16 +45,18 @@ namespace sanji {
     public Timeline(PictureBox picbox) {
       this.picbox = picbox;
 
+      font = new Font("Meiryo", 12);
       bmp = new Bitmap(bitmapSize.Width, bitmapSize.Height);
       gra = Graphics.FromImage(bmp);
 
       picbox.Image = bmp;
-      gra_picbox = Graphics.FromImage(picbox.Image);
-      
+
       items = new List<Item>();
 
-      for (int i = 0; i < 5; i++) {
-        var item = new TextItem("yeah", new Item.Location(0, 0));
+      for( int i = 0; i < 5; i++ ) {
+        var item = new TextItem("yeah", new Item.Location(i, 0));
+        item.name = $"item {i}";
+
         items.Add(item);
       }
 

@@ -16,7 +16,7 @@ namespace sanji {
       string file = callStack.GetFileName();
       int line = callStack.GetFileLineNumber();
 
-      if (msg.IsEmpty()) {
+      if( msg.IsEmpty() ) {
         Console.WriteLine($"\t#Alert {file}:{line}");
       }
       else {

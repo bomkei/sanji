@@ -15,10 +15,10 @@ namespace sanji {
     public Item.Location MousePosToItemLoc(int x, int y) {
       y /= layerHeight;
 
-      if (x < 0)
+      if( x < 0 )
         x = 0;
 
-      if (y < 0)
+      if( y < 0 )
         y = 0;
 
       return new Item.Location(y, x);
@@ -27,12 +27,12 @@ namespace sanji {
     public bool TryPlaceItem(Item.Location loc, Item item, out Item collid) {
       Debugs.Alert();
 
-      if (loc.position < 0)
+      if( loc.position < 0 )
         loc.position = 0;
 
       collid = IsItemCollid(loc, item.length, item);
 
-      if (collid == null) {
+      if( collid == null ) {
         item.location = loc;
         return true;
       }
@@ -41,8 +41,8 @@ namespace sanji {
     }
 
     public Item GetItemFromLoc(Item.Location loc) {
-      foreach (var item in items) {
-        if (item.location.layer == loc.layer && item.location.position <= loc.position && loc.position <= item.endpos) {
+      foreach( var item in items ) {
+        if( item.location.layer == loc.layer && item.location.position <= loc.position && loc.position <= item.endpos ) {
           return item;
         }
       }
@@ -51,9 +51,9 @@ namespace sanji {
     }
 
     public Item IsItemCollid(Item.Location loc, int len, Item ignore = null) {
-      foreach (var item in items) {
-        if (item != ignore && item.location.layer == loc.layer
-          && Utils.IsRangeCollid(loc.position, loc.position + len - 1, item.location.position, item.endpos)) {
+      foreach( var item in items ) {
+        if( item != ignore && item.location.layer == loc.layer
+          && Utils.IsRangeCollid(loc.position, loc.position + len - 1, item.location.position, item.endpos) ) {
           return item;
         }
       }
