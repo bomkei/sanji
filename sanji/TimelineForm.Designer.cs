@@ -37,6 +37,9 @@
       // 
       // pictureBox
       // 
+      this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.pictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
       this.pictureBox.Location = new System.Drawing.Point(64, 32);
       this.pictureBox.Name = "pictureBox";
@@ -46,6 +49,8 @@
       // 
       // vScrollBar1
       // 
+      this.vScrollBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.vScrollBar1.Location = new System.Drawing.Point(705, 0);
       this.vScrollBar1.Name = "vScrollBar1";
       this.vScrollBar1.Size = new System.Drawing.Size(24, 272);
@@ -53,13 +58,18 @@
       // 
       // hScrollBar1
       // 
+      this.hScrollBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.hScrollBar1.Location = new System.Drawing.Point(64, 272);
       this.hScrollBar1.Name = "hScrollBar1";
       this.hScrollBar1.Size = new System.Drawing.Size(665, 24);
       this.hScrollBar1.TabIndex = 2;
+      this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
       // 
       // pictureBox1
       // 
+      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
       this.pictureBox1.Location = new System.Drawing.Point(64, 0);
       this.pictureBox1.Name = "pictureBox1";
@@ -69,6 +79,8 @@
       // 
       // pictureBox2
       // 
+      this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
       this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
       this.pictureBox2.Location = new System.Drawing.Point(0, 32);
       this.pictureBox2.Name = "pictureBox2";
@@ -103,6 +115,7 @@
       this.ShowIcon = false;
       this.ShowInTaskbar = false;
       this.Text = "TimelineForm";
+      this.Shown += new System.EventHandler(this.TimelineForm_Shown);
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

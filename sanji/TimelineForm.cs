@@ -42,6 +42,12 @@ namespace sanji {
       timeline.Draw();
     }
 
+    private void hScrollBar1_Scroll(object sender, ScrollEventArgs e) {
 
+    }
+
+    private void TimelineForm_Shown(object sender, EventArgs e) {
+      timeline.Draw();
+    }
   }
 }
