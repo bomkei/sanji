@@ -166,7 +166,7 @@ namespace sanji {
 
       loc.position -= scrollval.X;
 
-      var itemRect = new Rectangle(loc.position, loc.layer * layerHeight + 2, item.length, layerHeight - 4);
+      var itemRect = new Rectangle(loc.position, loc.layer * layerHeight + 2, item.length - 1, layerHeight - 4);
 
       gra.FillRectangle(Brushes.DimGray, itemRect);
 
