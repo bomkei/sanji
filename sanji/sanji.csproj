@@ -48,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassExtensions.cs" />
+    <Compile Include="Timeline\Draw.cs" />
+    <Compile Include="Timeline\Helpers.cs" />
+    <Compile Include="Timeline\MouseEvents.cs" />
+    <Compile Include="Timeline\Types\Item\Text.cs" />
+    <Compile Include="Timeline\Types\MouseBehaviorInfo.cs" />
+    <Compile Include="Timeline\Types\Item\Item.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Debugs.cs" />
     <Compile Include="MainForm.cs">
@@ -58,7 +64,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Timeline.cs" />
+    <Compile Include="Timeline\Timeline.cs" />
     <Compile Include="TimelineForm.cs">
       <SubType>Form</SubType>
     </Compile>
