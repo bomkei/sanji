@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +26,10 @@ namespace sanji {
           this.layer = layer;
           this.position = position;
         }
+
+        public override string ToString() {
+          return $"{{layer={layer}, position={position}}}";
+        }
       }
 
       public Kind kind;
@@ -46,7 +51,7 @@ namespace sanji {
       }
     }
 
-    public class TextItem: Item {
+    public class TextItem : Item {
       public string text;
 
       public TextItem(string text, Location loc)
@@ -66,6 +71,7 @@ namespace sanji {
       }
 
       public Kind kind;
+      public bool isDown;
       public Item.Location clickedLoc;
       public Item clickedItem;
       public Item collidItem;
@@ -73,6 +79,7 @@ namespace sanji {
 
       public void Initialize(Kind kind, Item.Location clickedLoc, Item clickedItem) {
         this.kind = kind;
+        this.isDown = true;
         this.clickedLoc = clickedLoc;
         this.clickedItem = clickedItem;
         this.collidItem = null;
@@ -93,14 +100,15 @@ namespace sanji {
 
     readonly Size bitmapSize = new Size(2000, 1000);
     readonly RGB background = new RGB(64, 64, 64);
-    
+
     int layerHeight = 24;
+    Stopwatch sw = new Stopwatch();
 
     PictureBox picbox;
     Bitmap bmp;
     Graphics gra;
     Graphics gra_picbox;
-    
+
     public MouseBehaviorInfo msBehav;
     public List<Item> items;
     public Point scrollval;
@@ -127,9 +135,6 @@ namespace sanji {
     // -------- Draw ------- //
     public void Draw() {
 
-      Debugs.Alert();
-      Console.WriteLine($"{items.Count}");
-
       // background
       gra.FillRectangle(background.ToColor().ToBrush(), 0, 0, picbox.Width, picbox.Height);
 
@@ -146,6 +151,8 @@ namespace sanji {
       }
 
 
+      picbox.Image = bmp;
+
     }
 
     public void DrawItem(Item item) {
@@ -158,18 +165,20 @@ namespace sanji {
       gra.DrawRectangle(Pens.White, itemRect);
 
 
-      picbox.SetImage(gra_picbox, bmp);
 
     }
     // --------------------- //
 
-    
+
     // ------ Events ----- //
     public void OnMouseDown(object sender, MouseEventArgs e) {
 
       var loc = MousePosToItemLoc(e.X, e.Y);
       var item = GetItemFromLoc(loc);
 
+      Debugs.Alert();
+      Console.WriteLine($"{loc}");
+      Console.WriteLine($"{item != null}");
 
       // クリックした場所にアイテムがある
       if (item != null) {
@@ -192,10 +201,27 @@ namespace sanji {
 
       var loc = MousePosToItemLoc(e.X, e.Y);
 
+      if (!msBehav.isDown)
+        return;
+
+      loc.position += msBehav.clickDiff;
+
       switch (msBehav.kind) {
         case MouseBehaviorInfo.Kind.MoveItem: {
 
+          Item collid;
 
+          Debugs.Alert();
+
+          if (!TryPlaceItem(loc, msBehav.clickedItem, out collid)
+            && (collid != null && !TryPlaceItem(new Item.Location(
+              loc.layer, collid.location.position - msBehav.clickedItem.length
+              ), msBehav.clickedItem, out collid))
+              ) {
+            if (collid != null) {
+              TryPlaceItem(new Item.Location(loc.layer, collid.endpos + 1), msBehav.clickedItem, out collid);
+            }
+          }
 
           break;
         }
@@ -206,6 +232,12 @@ namespace sanji {
     }
 
     public void OnMouseUp(object sender, MouseEventArgs e) {
+
+      if (!msBehav.isDown)
+        return;
+
+
+      msBehav.isDown = false;
 
       Draw();
     }
@@ -222,11 +254,23 @@ namespace sanji {
       if (y < 0)
         y = 0;
 
-      return new Item.Location(x, y);
+      return new Item.Location(y, x);
     }
 
     public bool TryPlaceItem(Item.Location loc, Item item, out Item collid) {
-      if((collid))
+      Debugs.Alert();
+
+      if (loc.position < 0)
+        loc.position = 0;
+
+      collid = IsItemCollid(loc, item.length, item);
+
+      if (collid == null) {
+        item.location = loc;
+        return true;
+      }
+
+      return false;
     }
 
     public Item GetItemFromLoc(Item.Location loc) {
@@ -241,7 +285,8 @@ namespace sanji {
 
     public Item IsItemCollid(Item.Location loc, int len, Item ignore = null) {
       foreach (var item in items) {
-        if (item != ignore && Utils.IsRangeCollid(loc.position, loc.position + len - 1, item.location.position, item.endpos)) {
+        if (item != ignore && item.location.layer == loc.layer
+          && Utils.IsRangeCollid(loc.position, loc.position + len - 1, item.location.position, item.endpos)) {
           return item;
         }
       }
