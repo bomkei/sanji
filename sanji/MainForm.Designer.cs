@@ -35,8 +35,18 @@ namespace sanji
       this.picturebox_preview = new System.Windows.Forms.PictureBox();
       this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
       this.button1 = new System.Windows.Forms.Button();
+      this.pictureBox2 = new System.Windows.Forms.PictureBox();
+      this.pictureBox1 = new System.Windows.Forms.PictureBox();
+      this.hScrollBar2 = new System.Windows.Forms.HScrollBar();
+      this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+      this.pictureBox_timeline = new System.Windows.Forms.PictureBox();
+      this.trackBar1 = new System.Windows.Forms.TrackBar();
       this.menuStripMainForm.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_preview)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox_timeline)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
       this.SuspendLayout();
       // 
       // menuStripMainForm
@@ -46,7 +56,7 @@ namespace sanji
             this.ファイルFToolStripMenuItem});
       this.menuStripMainForm.Location = new System.Drawing.Point(0, 0);
       this.menuStripMainForm.Name = "menuStripMainForm";
-      this.menuStripMainForm.Size = new System.Drawing.Size(713, 24);
+      this.menuStripMainForm.Size = new System.Drawing.Size(976, 24);
       this.menuStripMainForm.TabIndex = 0;
       this.menuStripMainForm.Text = "menuStrip1";
       // 
@@ -89,12 +99,81 @@ namespace sanji
       this.button1.Text = "再生";
       this.button1.UseVisualStyleBackColor = true;
       // 
+      // pictureBox2
+      // 
+      this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+      this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+      this.pictureBox2.Location = new System.Drawing.Point(0, 444);
+      this.pictureBox2.Name = "pictureBox2";
+      this.pictureBox2.Size = new System.Drawing.Size(64, 197);
+      this.pictureBox2.TabIndex = 10;
+      this.pictureBox2.TabStop = false;
+      // 
+      // pictureBox1
+      // 
+      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+      this.pictureBox1.Location = new System.Drawing.Point(64, 412);
+      this.pictureBox1.Name = "pictureBox1";
+      this.pictureBox1.Size = new System.Drawing.Size(887, 32);
+      this.pictureBox1.TabIndex = 9;
+      this.pictureBox1.TabStop = false;
+      // 
+      // hScrollBar2
+      // 
+      this.hScrollBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.hScrollBar2.Location = new System.Drawing.Point(64, 617);
+      this.hScrollBar2.Name = "hScrollBar2";
+      this.hScrollBar2.Size = new System.Drawing.Size(912, 24);
+      this.hScrollBar2.TabIndex = 8;
+      // 
+      // vScrollBar1
+      // 
+      this.vScrollBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.vScrollBar1.Location = new System.Drawing.Point(952, 412);
+      this.vScrollBar1.Name = "vScrollBar1";
+      this.vScrollBar1.Size = new System.Drawing.Size(24, 205);
+      this.vScrollBar1.TabIndex = 7;
+      // 
+      // pictureBox_timeline
+      // 
+      this.pictureBox_timeline.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox_timeline.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+      this.pictureBox_timeline.Location = new System.Drawing.Point(64, 444);
+      this.pictureBox_timeline.Name = "pictureBox_timeline";
+      this.pictureBox_timeline.Size = new System.Drawing.Size(887, 173);
+      this.pictureBox_timeline.TabIndex = 6;
+      this.pictureBox_timeline.TabStop = false;
+      // 
+      // trackBar1
+      // 
+      this.trackBar1.Location = new System.Drawing.Point(0, 415);
+      this.trackBar1.Maximum = 100;
+      this.trackBar1.Minimum = 1;
+      this.trackBar1.Name = "trackBar1";
+      this.trackBar1.Size = new System.Drawing.Size(64, 45);
+      this.trackBar1.TabIndex = 11;
+      this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+      this.trackBar1.Value = 1;
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-      this.ClientSize = new System.Drawing.Size(713, 468);
+      this.ClientSize = new System.Drawing.Size(976, 641);
+      this.Controls.Add(this.pictureBox2);
+      this.Controls.Add(this.pictureBox1);
+      this.Controls.Add(this.hScrollBar2);
+      this.Controls.Add(this.vScrollBar1);
+      this.Controls.Add(this.pictureBox_timeline);
+      this.Controls.Add(this.trackBar1);
       this.Controls.Add(this.button1);
       this.Controls.Add(this.hScrollBar1);
       this.Controls.Add(this.picturebox_preview);
@@ -104,9 +183,14 @@ namespace sanji
       this.Text = "preview window";
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
+      this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
       this.menuStripMainForm.ResumeLayout(false);
       this.menuStripMainForm.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.picturebox_preview)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox_timeline)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -120,6 +204,12 @@ namespace sanji
     private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem;
     private System.Windows.Forms.HScrollBar hScrollBar1;
     private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.PictureBox pictureBox2;
+    private System.Windows.Forms.PictureBox pictureBox1;
+    private System.Windows.Forms.HScrollBar hScrollBar2;
+    private System.Windows.Forms.VScrollBar vScrollBar1;
+    private System.Windows.Forms.PictureBox pictureBox_timeline;
+    private System.Windows.Forms.TrackBar trackBar1;
   }
 }
 

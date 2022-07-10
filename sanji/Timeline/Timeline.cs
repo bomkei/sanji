@@ -35,8 +35,10 @@ namespace sanji {
     Bitmap bmp;
     Graphics gra;
 
-    public MouseBehaviorInfo msBehav;
     public List<Item> items;
+    public List<Item> main_layer;
+
+    public MouseBehaviorInfo msBehav;
     public Point scrollVal;
     public int seekBarPos;
 

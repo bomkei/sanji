@@ -30,15 +30,27 @@ namespace sanji {
       }
     }
 
-    TimelineForm timelineForm;
     AppContext appCtx;
+    Timeline timeline;
 
     public MainForm() {
       Debugs.Alert();
 
-      timelineForm = new TimelineForm();
-
       InitializeComponent();
+
+      timeline = new Timeline(this.pictureBox_timeline);
+
+      pictureBox_timeline.MouseDown += (object s, MouseEventArgs e) => { timeline.OnMouseDown(s, e); };
+      pictureBox_timeline.MouseMove += (object s, MouseEventArgs e) => { timeline.OnMouseMove(s, e); };
+      pictureBox_timeline.MouseUp += (object s, MouseEventArgs e) => { timeline.OnMouseUp(s, e); };
+
+      trackBar1.MouseWheel += (object s, MouseEventArgs e) => {
+        var addval = e.Delta / 120;
+        var bar = (TrackBar)s;
+
+        bar.Value = addval < 0 ? Math.Max(bar.Minimum, bar.Value + addval) : Math.Min(bar.Maximum, bar.Value + addval);
+      };
+
 
     }
 
@@ -47,25 +59,16 @@ namespace sanji {
 
       switch( ctx.windowMode ) {
         case WindowMode.One: {
-          timelineForm.TopLevel = false;
 
           break;
         }
 
         // デフォルト
         case WindowMode.Multi: {
-          timelineForm.Owner = this;
-
-          this.Size = new Size(
-            picturebox_preview.Width + 16,
-            menuStripMainForm.Height + picturebox_preview.Height + hScrollBar1.Height + 40);
-
           break;
         }
       }
 
-      timelineForm.Location = new Point(this.Location.X, this.Location.Y + this.Height);
-      timelineForm.Show();
     }
 
     private void MainForm_Load(object sender, EventArgs e) {
@@ -92,6 +95,10 @@ namespace sanji {
     }
 
     private void MainForm_SizeChanged(object sender, EventArgs e) {
+    }
+
+    private void MainForm_Paint(object sender, PaintEventArgs e) {
+      timeline.Draw();
     }
   }
 
