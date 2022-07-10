@@ -10,24 +10,76 @@ using System.Windows.Forms;
 
 namespace sanji {
   public partial class MainForm : Form {
-    [System.Runtime.InteropServices.DllImport("Kernel32.dll")]
-    private static extern bool AllocConsole();
+
+    enum WindowMode {
+      One,
+      Multi,
+    }
+
+    class AppContext {
+      public WindowMode windowMode;
+
+
+      public AppContext() {
+        // デバッグ用コンストラクタ
+        // リリースでは使わない
+
+        windowMode = WindowMode.Multi;
+
+
+      }
+    }
+
+    TimelineForm timelineForm;
+    AppContext appCtx;
 
     public MainForm() {
-      AllocConsole();
+      Debugs.Alert();
+
+      timelineForm = new TimelineForm();
+
       InitializeComponent();
 
     }
 
-    void onMouseDown(object sender, MouseEventArgs e) {
+    void InitWindow() {
+      var ctx = appCtx;
+
+      switch (ctx.windowMode) {
+        case WindowMode.One: {
+          timelineForm.TopLevel = false;
+
+          break;
+        }
+
+        // デフォルト
+        case WindowMode.Multi: {
+
+
+
+          break;
+        }
+      }
+
+      timelineForm.Show();
+    }
+
+    private void MainForm_Load(object sender, EventArgs e) {
+      appCtx = new AppContext();
+
+      InitWindow();
+
+    }
+
+    void OnMouseDown(object sender, MouseEventArgs e) {
 
     }
     
-    void onMouseMove(object sender, MouseEventArgs e) {
+    void OnMouseMove(object sender, MouseEventArgs e) {
 
     }
     
-    void onMouseUp(object sender, MouseEventArgs e) {
+    void OnMouseUp(object sender, MouseEventArgs e) {
 
     }
 
@@ -35,8 +87,6 @@ namespace sanji {
 
     }
 
-    private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
-    }
   }
 
 

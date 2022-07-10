@@ -5,7 +5,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sanji {
-  public static partial class GraphicsExtensions {
+  public static partial class ClassExtensions {
+    public static bool IsEmpty(this string str) {
+      return str.Length == 0;
+    }
+
+    public static void SetImage(this PictureBox picbox, Graphics gra_picbox, Image image) {
+      if (picbox.Image == null) {
+        picbox.Image = image;
+        return;
+      }
+
+      var rect = new Rectangle(0, 0, image.Width, image.Height);
+      gra_picbox.DrawImage(image, rect, rect, GraphicsUnit.Pixel);
+    }
+
     public static void DrawPixel(this Graphics gra, Pen pen, int x, int y) {
       gra.FillRectangle(new SolidBrush(pen.Color), x, y, 1, 1);
     }
