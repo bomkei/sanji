@@ -10,6 +10,10 @@ namespace sanji {
       return str.Length == 0;
     }
 
+    public static Brush ToBrush(this Color color) {
+      return new SolidBrush(color);
+    }
+
     public static void SetImage(this PictureBox picbox, Graphics gra_picbox, Image image) {
       if (picbox.Image == null) {
         picbox.Image = image;

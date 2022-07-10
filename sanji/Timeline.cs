@@ -64,7 +64,20 @@ namespace sanji {
       }
     }
 
+    struct RGB {
+      public int r, g, b;
+
+      public RGB(int r, int g, int b) {
+        (this.r, this.g, this.b) = (r, g, b);
+      }
+
+      public Color ToColor() {
+        return Color.FromArgb(r, g, b);
+      }
+    }
+
     readonly Size bitmapSize = new Size(2000, 1000);
+    readonly RGB background = new RGB(64, 64, 64);
 
     PictureBox picbox;
     Bitmap bmp;
@@ -79,6 +92,7 @@ namespace sanji {
       this.picbox = picbox;
 
       bmp = new Bitmap(bitmapSize.Width, bitmapSize.Height);
+      gra = Graphics.FromImage(bmp);
 
       items = new List<Item>();
 
@@ -87,6 +101,12 @@ namespace sanji {
 
     // -------- Draw ------- //
     public void Draw() {
+
+      // background
+      gra.FillRectangle(background.ToColor().ToBrush(), 0, 0, picbox.Width, picbox.Height);
+
+
+
 
     }
     // --------------------- //
