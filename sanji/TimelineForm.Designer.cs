@@ -23,12 +23,15 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+      this.components = new System.ComponentModel.Container();
       this.pictureBox = new System.Windows.Forms.PictureBox();
       this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
       this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
       this.pictureBox1 = new System.Windows.Forms.PictureBox();
       this.pictureBox2 = new System.Windows.Forms.PictureBox();
       this.trackBar1 = new System.Windows.Forms.TrackBar();
+      this.ctxMenuStrip_Item = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.ctxMenuStrip_Timeline = new System.Windows.Forms.ContextMenuStrip(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -99,6 +102,16 @@
       this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
       this.trackBar1.Value = 1;
       // 
+      // ctxMenuStrip_Item
+      // 
+      this.ctxMenuStrip_Item.Name = "ctxMenuStrip_Item";
+      this.ctxMenuStrip_Item.Size = new System.Drawing.Size(181, 26);
+      // 
+      // ctxMenuStrip_Timeline
+      // 
+      this.ctxMenuStrip_Timeline.Name = "ctxMenuStrip_Item";
+      this.ctxMenuStrip_Timeline.Size = new System.Drawing.Size(61, 4);
+      // 
       // TimelineForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -133,5 +146,7 @@
     private System.Windows.Forms.PictureBox pictureBox1;
     private System.Windows.Forms.PictureBox pictureBox2;
     private System.Windows.Forms.TrackBar trackBar1;
+    private System.Windows.Forms.ContextMenuStrip ctxMenuStrip_Item;
+    private System.Windows.Forms.ContextMenuStrip ctxMenuStrip_Timeline;
   }
 }

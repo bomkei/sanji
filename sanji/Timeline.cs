@@ -43,6 +43,12 @@ namespace sanji {
         }
       }
 
+      public int centerpos {
+        get {
+          return location.position + length / 2;
+        }
+      }
+
       public Item(Kind kind, Location loc, int len) {
         this.kind = kind;
         this.name = string.Empty;
@@ -101,7 +107,7 @@ namespace sanji {
     readonly Size bitmapSize = new Size(2000, 1000);
     readonly RGB background = new RGB(64, 64, 64);
 
-    int layerHeight = 24;
+    int layerHeight = 32;
     Stopwatch sw = new Stopwatch();
 
     PictureBox picbox;
@@ -126,8 +132,11 @@ namespace sanji {
 
       items = new List<Item>();
 
-      var item = new TextItem("yeah", new Item.Location(0, 0));
-      items.Add(item);
+      for (int i = 0; i < 5; i++) {
+        var item = new TextItem("yeah", new Item.Location(0, 0));
+        items.Add(item);
+      }
+      
 
       Instance = this;
     }
@@ -138,16 +147,13 @@ namespace sanji {
       // background
       gra.FillRectangle(background.ToColor().ToBrush(), 0, 0, picbox.Width, picbox.Height);
 
-      int layerCount = 0;
+      for (int i = 0; i < 10; i++) {
+        var y = i * layerHeight;
+        gra.DrawLine(new Pen(Color.FromArgb(42, 42, 42)), 0, y, picbox.Width, y);
+      }
 
       foreach (var item in items) {
         DrawItem(item);
-
-        layerCount = Math.Max(layerCount, item.location.layer);
-      }
-
-      for (; layerCount > 0; layerCount--) {
-
       }
 
 
@@ -160,11 +166,11 @@ namespace sanji {
 
       loc.position -= scrollval.X;
 
-      var itemRect = new Rectangle(loc.position, loc.layer * layerHeight, item.length, layerHeight);
+      var itemRect = new Rectangle(loc.position, loc.layer * layerHeight + 2, item.length, layerHeight - 4);
 
-      gra.DrawRectangle(Pens.White, itemRect);
+      gra.FillRectangle(Brushes.DimGray, itemRect);
 
-
+      gra.DrawRectangle(new Pen(Color.FromArgb(48,48,48)), itemRect);
 
     }
     // --------------------- //
@@ -200,26 +206,25 @@ namespace sanji {
     public void OnMouseMove(object sender, MouseEventArgs e) {
 
       var loc = MousePosToItemLoc(e.X, e.Y);
+      var item = msBehav.clickedItem;
 
       if (!msBehav.isDown)
         return;
 
-      loc.position += msBehav.clickDiff;
+      var item_loc = loc;
+      item_loc.position += msBehav.clickDiff;
 
       switch (msBehav.kind) {
         case MouseBehaviorInfo.Kind.MoveItem: {
 
           Item collid;
 
-          Debugs.Alert();
-
-          if (!TryPlaceItem(loc, msBehav.clickedItem, out collid)
-            && (collid != null && !TryPlaceItem(new Item.Location(
-              loc.layer, collid.location.position - msBehav.clickedItem.length
-              ), msBehav.clickedItem, out collid))
-              ) {
-            if (collid != null) {
-              TryPlaceItem(new Item.Location(loc.layer, collid.endpos + 1), msBehav.clickedItem, out collid);
+          if (!TryPlaceItem(item_loc, item, out collid)) {
+            if (collid.centerpos <= loc.position) {
+              TryPlaceItem(new Item.Location(item_loc.layer, collid.endpos + 1), item, out collid);
+            }
+            else {
+              TryPlaceItem(new Item.Location(item_loc.layer, collid.location.position - item.length), item, out collid);
             }
           }
 
