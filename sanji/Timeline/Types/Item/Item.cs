@@ -36,17 +36,13 @@ namespace sanji.TimelineItems {
     public Location location;
     public int length;
 
-    public int endpos {
-      get {
-        return location.position + length - 1;
-      }
-    }
+    public int layer { get { return location.layer; } set { location.layer = value; } }
+    
+    public int position { get { return location.position; } set { location.position = value; } }
 
-    public int centerpos {
-      get {
-        return location.position + length / 2;
-      }
-    }
+    public int endpos { get { return location.position + length - 1; } }
+
+    public int centerpos { get { return location.position + length / 2; } }
 
     public Item(Kind kind, Location loc, int len) {
       this.kind = kind;

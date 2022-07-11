@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace sanji {
   public static partial class ClassExtensions {
+
     public static bool IsEmpty(this string str) {
       return str.Length == 0;
     }

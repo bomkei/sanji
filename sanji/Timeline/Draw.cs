@@ -27,7 +27,12 @@ namespace sanji {
 
       // items
       foreach( var item in items ) {
-        DrawItem(item);
+        var (ix, iy) = ItemLocToMousePosTuple(item.layer, item.position);
+        var endix = ItemLocToMousePosTuple(0, item.endpos).Item1;
+
+        if( endix >= 0 && ix < picbox.Width ) {
+          DrawItem(item);
+        }
       }
 
 
@@ -48,7 +53,7 @@ namespace sanji {
         : (msBehav.mouseEnteredItem == item ? Pens.Wheat : new Pen(Color.FromArgb(120, 120, 120)));
 
       // 塗りつぶしの色
-      var fillcolor = new SolidBrush(Color.FromArgb(70, 70, 70));
+      var fillcolor = new SolidBrush(Color.FromArgb(80, 80, 80));
 
       // 長さが 1 のときは縦線を描画するだけ
       if( item.length == 1 ) {
@@ -63,10 +68,11 @@ namespace sanji {
 
       gra.FillRectangle(fillcolor, itemRect);
 
+      gra.DrawRectangle(boxcolor, itemRect);
+
       gra.DrawString(item.name.Substring(0, txtlen), font, Brushes.White,
         itemRect.X, itemRect.Y + (layerHeight - (int)gra.MeasureString(item.name, font).Height) / 2);
 
-      gra.DrawRectangle(boxcolor, itemRect);
 
     }
   }

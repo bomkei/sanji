@@ -24,8 +24,14 @@ namespace sanji {
       return new Item.Location(y, x);
     }
 
+    public (int, int) ItemLocToMousePosTuple(int layer, int position) {
+      return (position, layer * layerHeight);
+    }
+
     public Point ItemLocToMousePos(int layer, int position) {
-      return new Point(position, layer * layerHeight);
+      var (x, y) = ItemLocToMousePosTuple(layer, position);
+
+      return new Point(x, y);
     }
 
     public bool TryPlaceItem(Item.Location loc, Item item, out Item collid) {
@@ -46,7 +52,7 @@ namespace sanji {
 
     public Item GetItemFromLoc(Item.Location loc) {
       foreach( var item in items ) {
-        if( item.location.layer == loc.layer && item.location.position <= loc.position && loc.position <= item.endpos ) {
+        if( item.layer == loc.layer && item.position <= loc.position && loc.position <= item.endpos ) {
           return item;
         }
       }
@@ -56,8 +62,8 @@ namespace sanji {
 
     public Item IsItemCollid(Item.Location loc, int len, Item ignore = null) {
       foreach( var item in items ) {
-        if( item != ignore && item.location.layer == loc.layer
-          && Utils.IsRangeCollid(loc.position, loc.position + len - 1, item.location.position, item.endpos) ) {
+        if( item != ignore && item.layer == loc.layer
+          && Utils.IsRangeCollid(loc.position, loc.position + len - 1, item.position, item.endpos) ) {
           return item;
         }
       }

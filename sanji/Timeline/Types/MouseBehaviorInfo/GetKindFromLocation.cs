@@ -43,8 +43,8 @@ namespace sanji {
 
           Debugs.Alert();
 
-          var actpos = tl.ItemLocToMousePos(item.location.layer, item.location.position);
-          var actpos_end = tl.ItemLocToMousePos(item.location.layer, item.location.position + item.length);
+          var actpos = tl.ItemLocToMousePos(item.layer, item.position);
+          var actpos_end = tl.ItemLocToMousePos(item.layer, item.position + item.length);
 
           if( e.X <= actpos.X + rangeOfChangeLength ) {
             return Kind.ChangeItemLength_Left;

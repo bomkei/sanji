@@ -12,6 +12,15 @@ using sanji.TimelineItems;
 
 namespace sanji {
   public partial class Timeline {
+    Item.Location _AdjustItemLocation(Item.Location loc, ref MouseBehaviorInfo info) {
+      if( loc.position < info.leftstop )
+        loc.position = info.leftstop;
+      else if( info.rightstop != -1 && loc.position > info.rightstop )
+        loc.position = info.rightstop;
+
+      return loc;
+    }
+
     public void OnMouseDown(PictureBox sender, ref MouseBehaviorInfo info, MouseEventArgs e) {
 
       var loc = MousePosToItemLoc(e.X, e.Y);
@@ -31,7 +40,7 @@ namespace sanji {
 
         case MouseBehaviorInfo.Kind.MoveItem: {
           info.Initialize(MouseBehaviorInfo.Kind.MoveItem, loc, item);
-          info.clickDiff = item.location.position - loc.position;
+          info.clickDiff = item.position - loc.position;
           break;
         }
 
@@ -42,8 +51,8 @@ namespace sanji {
           info.rightstop = item.endpos;
 
           foreach( var x in items ) {
-            if( x.location.layer == item.location.layer
-              && info.leftstop < x.endpos + 1 && x.endpos + 1 < item.location.position ) {
+            if( x != item && x.layer == item.layer
+              && info.leftstop < x.endpos + 1 && x.endpos < item.position ) {
               info.leftstop = x.endpos + 1;
             }
           }
@@ -53,11 +62,14 @@ namespace sanji {
 
         case MouseBehaviorInfo.Kind.ChangeItemLength_Right: {
           info.Initialize(MouseBehaviorInfo.Kind.ChangeItemLength_Right, loc, item);
-          info.leftpos = item.location.position;
+          info.leftstop = item.position + 1;
           info.rightstop = -1;
 
           foreach( var x in items ) {
-
+            if( x != item && x.layer == item.layer
+              && (item.endpos < x.position && (x.position < info.rightstop || info.rightstop == -1)) ) {
+              info.rightstop = x.position;
+            }
           }
 
           break;
@@ -84,10 +96,10 @@ namespace sanji {
       var loc = MousePosToItemLoc(e.X, e.Y);
       var item = info.clickedItem;
 
-      info.mouseEnteredItem = GetItemFromLoc(loc);
-
+      // 押下されていない
       if( !info.isDown ) {
         sender.Cursor = Cursors.Default;
+        info.mouseEnteredItem = GetItemFromLoc(loc);
 
         switch( info.GetKindFromLocation(this, loc, e) ) {
           case MouseBehaviorInfo.Kind.MoveItem: {
@@ -113,19 +125,15 @@ namespace sanji {
       }
 
       var item_loc = loc;
+      
+      info.mouseEnteredItem = null;
       item_loc.position += info.clickDiff;
 
       switch( info.kind ) {
         case MouseBehaviorInfo.Kind.ChangeItemLength_Left: {
+          loc = _AdjustItemLocation(loc, ref info);
 
-          if( loc.position < info.leftstop ) {
-            loc.position = info.leftstop;
-          }
-          else if( info.rightstop < loc.position ) {
-            loc.position = info.rightstop;
-          }
-
-          item.location.position = loc.position;
+          item.position = loc.position;
           item.length = info.rightpos - loc.position;
 
           Console.WriteLine($"{item.length}");
@@ -134,8 +142,9 @@ namespace sanji {
         }
 
         case MouseBehaviorInfo.Kind.ChangeItemLength_Right: {
+          loc = _AdjustItemLocation(loc, ref info);
 
-          item.length = loc.position - item.location.position;
+          item.length = loc.position - item.position;
 
           break;
         }
@@ -148,7 +157,7 @@ namespace sanji {
               TryPlaceItem(new Item.Location(item_loc.layer, collid.endpos + 1), item, out collid);
             }
             else {
-              TryPlaceItem(new Item.Location(item_loc.layer, collid.location.position - item.length), item, out collid);
+              TryPlaceItem(new Item.Location(item_loc.layer, collid.position - item.length), item, out collid);
             }
           }
 
