@@ -52,7 +52,8 @@
     <Compile Include="Timeline\Helpers.cs" />
     <Compile Include="Timeline\MouseEvents.cs" />
     <Compile Include="Timeline\Types\Item\Text.cs" />
-    <Compile Include="Timeline\Types\MouseBehaviorInfo.cs" />
+    <Compile Include="Timeline\Types\MouseBehaviorInfo\GetKindFromLocation.cs" />
+    <Compile Include="Timeline\Types\MouseBehaviorInfo\MouseBehaviorInfo.cs" />
     <Compile Include="Timeline\Types\Item\Item.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Debugs.cs" />

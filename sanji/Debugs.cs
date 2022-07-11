@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace sanji {
-  public partial class Debugs {
+  public static partial class Debugs {
     [System.Runtime.InteropServices.DllImport("Kernel32.dll")]
     public static extern bool AllocConsole();
 
@@ -32,5 +32,8 @@ namespace sanji {
       _Alert(string.Format(fmt, args));
     }
 
+    public static void Print(string fmt, params object[] args) {
+      Console.WriteLine(fmt, args);
+    }
   }
 }

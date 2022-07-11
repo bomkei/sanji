@@ -12,6 +12,8 @@ using sanji.TimelineItems;
 
 namespace sanji {
   public partial class Timeline {
+
+    //
     public void Draw() {
 
       // background
@@ -40,7 +42,10 @@ namespace sanji {
       var itemRect = new Rectangle(loc.position, loc.layer * layerHeight + 2, item.length - 1, layerHeight - 4);
 
       // 外枠の色
-      var boxcolor = msBehav.clickedItem == item ? Pens.DodgerBlue : new Pen(Color.FromArgb(120, 120, 120));
+      var boxcolor =
+        msBehav.clickedItem == item
+        ? Pens.DodgerBlue
+        : (msBehav.mouseEnteredItem == item ? Pens.Wheat : new Pen(Color.FromArgb(120, 120, 120)));
 
       // 塗りつぶしの色
       var fillcolor = new SolidBrush(Color.FromArgb(70, 70, 70));

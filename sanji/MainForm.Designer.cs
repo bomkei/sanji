@@ -208,8 +208,8 @@ namespace sanji
     private System.Windows.Forms.PictureBox pictureBox1;
     private System.Windows.Forms.HScrollBar hScrollBar2;
     private System.Windows.Forms.VScrollBar vScrollBar1;
-    private System.Windows.Forms.PictureBox pictureBox_timeline;
     private System.Windows.Forms.TrackBar trackBar1;
+    public System.Windows.Forms.PictureBox pictureBox_timeline;
   }
 }
 

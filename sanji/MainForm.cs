@@ -38,11 +38,11 @@ namespace sanji {
 
       InitializeComponent();
 
-      timeline = new Timeline(this.pictureBox_timeline);
+      timeline = new Timeline(this);
 
-      pictureBox_timeline.MouseDown += (object s, MouseEventArgs e) => { timeline.OnMouseDown(s, ref timeline.msBehav, e); };
-      pictureBox_timeline.MouseMove += (object s, MouseEventArgs e) => { timeline.OnMouseMove(s, ref timeline.msBehav, e); };
-      pictureBox_timeline.MouseUp += (object s, MouseEventArgs e) => { timeline.OnMouseUp(s, ref timeline.msBehav, e); };
+      pictureBox_timeline.MouseDown += (object s, MouseEventArgs e) => { timeline.OnMouseDown((PictureBox)s, ref timeline.msBehav, e); };
+      pictureBox_timeline.MouseMove += (object s, MouseEventArgs e) => { timeline.OnMouseMove((PictureBox)s, ref timeline.msBehav, e); };
+      pictureBox_timeline.MouseUp += (object s, MouseEventArgs e) => { timeline.OnMouseUp((PictureBox)s, ref timeline.msBehav, e); };
 
       trackBar1.MouseWheel += (object s, MouseEventArgs e) => {
         var addval = e.Delta / 120;
@@ -74,7 +74,7 @@ namespace sanji {
     private void MainForm_Load(object sender, EventArgs e) {
       appCtx = new AppContext();
 
-      InitWindow();
+      //InitWindow();
 
     }
 

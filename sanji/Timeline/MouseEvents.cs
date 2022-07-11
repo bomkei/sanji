@@ -12,7 +12,7 @@ using sanji.TimelineItems;
 
 namespace sanji {
   public partial class Timeline {
-    public void OnMouseDown(object sender, ref MouseBehaviorInfo info, MouseEventArgs e) {
+    public void OnMouseDown(PictureBox sender, ref MouseBehaviorInfo info, MouseEventArgs e) {
 
       var loc = MousePosToItemLoc(e.X, e.Y);
       var item = info.clickedItem = GetItemFromLoc(loc);
@@ -20,6 +20,8 @@ namespace sanji {
       Debugs.Alert();
       Console.WriteLine($"{loc}");
       Console.WriteLine($"{item != null}");
+
+      //info.clickedItem = item;
 
       switch( info.GetKindFromLocation(this, loc, e) ) {
         case MouseBehaviorInfo.Kind.MoveSeekbar: {
@@ -78,12 +80,37 @@ namespace sanji {
       Draw();
     }
 
-    public void OnMouseMove(object sender, ref MouseBehaviorInfo info, MouseEventArgs e) {
+    public void OnMouseMove(PictureBox sender, ref MouseBehaviorInfo info, MouseEventArgs e) {
       var loc = MousePosToItemLoc(e.X, e.Y);
       var item = info.clickedItem;
 
-      if( !info.isDown )
+      info.mouseEnteredItem = GetItemFromLoc(loc);
+
+      if( !info.isDown ) {
+        sender.Cursor = Cursors.Default;
+
+        switch( info.GetKindFromLocation(this, loc, e) ) {
+          case MouseBehaviorInfo.Kind.MoveItem: {
+
+            break;
+          }
+
+          case MouseBehaviorInfo.Kind.ChangeItemLength_Left: {
+            sender.Cursor = Cursors.SizeWE;
+
+            break;
+          }
+
+          case MouseBehaviorInfo.Kind.ChangeItemLength_Right: {
+            sender.Cursor = Cursors.SizeWE;
+
+            break;
+          }
+        }
+
+        Draw();
         return;
+      }
 
       var item_loc = loc;
       item_loc.position += info.clickDiff;
@@ -132,7 +159,7 @@ namespace sanji {
       Draw();
     }
 
-    public void OnMouseUp(object sender, ref MouseBehaviorInfo info, MouseEventArgs e) {
+    public void OnMouseUp(PictureBox sender, ref MouseBehaviorInfo info, MouseEventArgs e) {
 
       if( !info.isDown )
         return;

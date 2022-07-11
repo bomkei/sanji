@@ -27,7 +27,7 @@ namespace sanji.TimelineItems {
       }
 
       public override string ToString() {
-        return $"{{layer={layer}, position={position}}}";
+        return $"(Item.Location layer={layer}, position={position})";
       }
     }
 

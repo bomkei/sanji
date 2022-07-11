@@ -28,8 +28,9 @@ namespace sanji {
     readonly RGB background = new RGB(64, 64, 64);
 
     int layerHeight = 32;
-    Stopwatch sw = new Stopwatch();
+    // Stopwatch sw = new Stopwatch();
 
+    MainForm mainform;
     PictureBox picbox;
     Font font;
     Bitmap bmp;
@@ -43,14 +44,18 @@ namespace sanji {
 
     public static Timeline Instance;
 
-    public Timeline(PictureBox picbox) {
-      this.picbox = picbox;
+    public Timeline(MainForm mainform) {
 
+      // initialize values
+      this.mainform = mainform;
+      this.picbox = mainform.pictureBox_timeline;
       font = new Font("Meiryo", 12);
       bmp = new Bitmap(bitmapSize.Width, bitmapSize.Height);
       gra = Graphics.FromImage(bmp);
+      msBehav = new MouseBehaviorInfo();
 
-      picbox.Image = bmp;
+      // 
+      //picbox.Image = bmp;
 
       items = new List<Item>();
 
