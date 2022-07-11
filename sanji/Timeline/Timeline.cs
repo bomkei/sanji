@@ -36,7 +36,6 @@ namespace sanji {
     Graphics gra;
 
     public List<Item> items;
-    public List<Item> main_layer;
 
     public MouseBehaviorInfo msBehav;
     public Point scrollVal;

@@ -35,19 +35,33 @@ namespace sanji {
 
     public void DrawItem(Item item) {
       var loc = item.location;
+
+      // 描画範囲
       var itemRect = new Rectangle(loc.position, loc.layer * layerHeight + 2, item.length - 1, layerHeight - 4);
+
+      // 外枠の色
+      var boxcolor = msBehav.clickedItem == item ? Pens.DodgerBlue : new Pen(Color.FromArgb(120, 120, 120));
+
+      // 塗りつぶしの色
+      var fillcolor = new SolidBrush(Color.FromArgb(70, 70, 70));
+
+      // 長さが 1 のときは縦線を描画するだけ
+      if( item.length == 1 ) {
+        gra.DrawLine(boxcolor, itemRect.X, itemRect.Y, itemRect.X, itemRect.Y + itemRect.Height);
+        return;
+      }
 
       loc.position -= scrollVal.X;
 
       int txtlen = item.name.Length;
-      for( ; txtlen >= 0 && itemRect.Width < (int)gra.MeasureString(item.name, font).Width; txtlen-- ) ;
+      for( ; txtlen > 0 && itemRect.Width < (int)gra.MeasureString(item.name.Substring(0, txtlen), font).Width; txtlen-- ) ;
 
-      gra.FillRectangle(Brushes.DimGray, itemRect);
+      gra.FillRectangle(fillcolor, itemRect);
 
       gra.DrawString(item.name.Substring(0, txtlen), font, Brushes.White,
         itemRect.X, itemRect.Y + (layerHeight - (int)gra.MeasureString(item.name, font).Height) / 2);
 
-      gra.DrawRectangle(new Pen(Color.FromArgb(48, 48, 48)), itemRect);
+      gra.DrawRectangle(boxcolor, itemRect);
 
     }
   }

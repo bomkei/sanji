@@ -24,6 +24,10 @@ namespace sanji {
       return new Item.Location(y, x);
     }
 
+    public Point ItemLocToMousePos(int layer, int position) {
+      return new Point(position, layer * layerHeight);
+    }
+
     public bool TryPlaceItem(Item.Location loc, Item item, out Item collid) {
       Debugs.Alert();
 

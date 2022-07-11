@@ -40,9 +40,9 @@ namespace sanji {
 
       timeline = new Timeline(this.pictureBox_timeline);
 
-      pictureBox_timeline.MouseDown += (object s, MouseEventArgs e) => { timeline.OnMouseDown(s, e); };
-      pictureBox_timeline.MouseMove += (object s, MouseEventArgs e) => { timeline.OnMouseMove(s, e); };
-      pictureBox_timeline.MouseUp += (object s, MouseEventArgs e) => { timeline.OnMouseUp(s, e); };
+      pictureBox_timeline.MouseDown += (object s, MouseEventArgs e) => { timeline.OnMouseDown(s, ref timeline.msBehav, e); };
+      pictureBox_timeline.MouseMove += (object s, MouseEventArgs e) => { timeline.OnMouseMove(s, ref timeline.msBehav, e); };
+      pictureBox_timeline.MouseUp += (object s, MouseEventArgs e) => { timeline.OnMouseUp(s, ref timeline.msBehav, e); };
 
       trackBar1.MouseWheel += (object s, MouseEventArgs e) => {
         var addval = e.Delta / 120;
